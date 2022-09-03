@@ -1,37 +1,63 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
-import {TasksModel, TasksType} from "./tasks.model";
-import * as uuid from 'uuid'
+import {TaskType} from "./task.model";
 import {CreateTaskDto} from "./dto/create-task.dto";
+import {Tasks} from "./task.entity";
+import {Repository, SelectQueryBuilder} from "typeorm";
+import {InjectRepository} from "@nestjs/typeorm";
+import {TasksFilterDto} from "./dto/tasks-filter.dto";
 
 @Injectable()
 export class TasksService {
 
-    private _tasks: TasksModel[] = [];
-
-    getAllTasks(): TasksModel[] {
-        return this._tasks
+    constructor(
+        @InjectRepository(Tasks)
+        private tasksRepository: Repository<Tasks>,
+    ) {
     }
 
-    getOneTask(id: string): TasksModel {
-        const _found: TasksModel = this._tasks.find(f => f.id === id)
+
+    async getTasks(filterDto?: TasksFilterDto): Promise<Tasks[]> {
+        const {searchText, type} = filterDto;
+        const query: SelectQueryBuilder<Tasks> = this.tasksRepository.createQueryBuilder('task');
+
+        if (searchText) {
+            query.andWhere('(task.title LIKE :title)', {title: `%${searchText}%`})
+        }
+
+
+        if (type) {
+            query.andWhere('task.type = :type', {type})
+        }
+
+        return await query.getMany()
+    }
+
+    async getTaskById(id: number): Promise<Tasks | null> {
+        const _found: Tasks = await this.tasksRepository.findOneBy({id: id})
         if (!_found) {
             throw new NotFoundException('task peida nashod')
         }
-        return
+        return _found
     }
 
-    deleteTask(id: string): void {
-        this._tasks = this._tasks.filter(f => f.id !== id)
+    async createNewTask(newTask: CreateTaskDto): Promise<Tasks> {
+        const _task = new Tasks();
+        _task.title = newTask.title;
+        return await _task.save();
     }
 
-    createNewTask(newTask: CreateTaskDto): TasksModel {
-        const _task: TasksModel = {
-            id: uuid.v4(),
-            title: newTask.title,
-            type: TasksType.open
-        }
-        this._tasks.push(_task);
-        return _task
+    async deleteTask(id: number): Promise<any> {
+        return await this.tasksRepository
+            .createQueryBuilder()
+            .delete()
+            .from(Tasks)
+            .where("id = :id", {id: id})
+            .execute()
+        // const _found: Tasks = await this.getTaskById(id)
+        // if (!_found) {
+        //     throw new NotFoundException('task peida nashod')
+        // }
+        // return await this.tasksRepository.delete(id)
     }
 
 }

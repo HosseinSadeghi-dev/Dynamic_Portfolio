@@ -1,4 +1,4 @@
-import {TasksType} from "../tasks.model";
+import {TaskType} from "../task.model";
 import {IsIn, IsNotEmpty, IsOptional} from "class-validator";
 
 export class TasksFilterDto {
@@ -7,6 +7,6 @@ export class TasksFilterDto {
     searchText: string;
 
     @IsOptional()
-    @IsIn(Object.values(TasksType))
-    type: TasksType
+    @IsIn(Object.values(TaskType))
+    type: TaskType
 }
