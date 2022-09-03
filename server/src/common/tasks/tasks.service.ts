@@ -1,5 +1,4 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
-import {TaskType} from "./task.model";
 import {CreateTaskDto} from "./dto/create-task.dto";
 import {Tasks} from "./task.entity";
 import {Repository, SelectQueryBuilder} from "typeorm";
@@ -53,11 +52,6 @@ export class TasksService {
             .from(Tasks)
             .where("id = :id", {id: id})
             .execute()
-        // const _found: Tasks = await this.getTaskById(id)
-        // if (!_found) {
-        //     throw new NotFoundException('task peida nashod')
-        // }
-        // return await this.tasksRepository.delete(id)
     }
 
 }

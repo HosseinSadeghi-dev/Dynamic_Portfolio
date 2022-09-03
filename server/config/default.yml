@@ -1,0 +1,20 @@
+server:
+  port: 3000
+
+db:
+  type: 'postgres'
+  host: 'localhost'
+  port: 5432
+  username: 'postgres'
+  password: 'Hossein1379'
+  database: 'dynamic_portfolio'
+  synchronize: true
+
+jwt:
+  expiresIn: 3600
+  secret: 'Ho$$einSadeghi2000'
+
+
+email:
+  user: 'info@moshaverpendar.com'
+  pass: 'psychomet05113'
