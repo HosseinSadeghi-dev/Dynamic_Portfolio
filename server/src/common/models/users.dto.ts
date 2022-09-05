@@ -1,5 +1,5 @@
 import {IsBoolean, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString} from "class-validator";
-import {UserRole} from "../user.model";
+import {UserRole} from "./user.model";
 import {Transform} from "class-transformer";
 
 export class UsersFilterDto {
@@ -32,7 +32,7 @@ export class CreateUserDto {
     password: string
 
     @IsOptional()
-    @IsIn([UserRole])
+    @IsIn(Object.values(UserRole), {message: 'ورودی نقش صحیح نیست'})
     role: UserRole
 }
 
@@ -40,4 +40,10 @@ export class ChangeApproveStatusDto {
     @IsNotEmpty({message: 'وضعیت باید مقدار داشته باشد'})
     @IsBoolean({message: 'ورودی وضعیت صحیح نیست'})
     status: boolean
+}
+
+export class ChangeUserRoleDto {
+    @IsNotEmpty({message: 'نقش باید مقدار داشته باشد'})
+    @IsIn(Object.values(UserRole), {message: 'ورودی نقش صحیح نیست'})
+    role: UserRole
 }

@@ -1,18 +1,19 @@
 import {ConflictException, Injectable, InternalServerErrorException, UnauthorizedException} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
-import {User} from "../user/user.entity";
-import {UserCredentialDto} from "./dto/user-credential.dto";
+import {UserEntity} from "../entity";
+import {UserCredentialDto} from "../dto/user-credential.dto";
 import * as bcrypt from 'bcrypt';
 import {JwtService} from "@nestjs/jwt";
 import {ErrorCodeEnum} from "../../shared/error-code.enum";
+import {JwtPayload} from "../../shared/jwt/jwt-payload.interface";
 
 @Injectable()
 export class AuthService {
 
     constructor(
-        @InjectRepository(User)
-        private usersRepository: Repository<User>,
+        @InjectRepository(UserEntity)
+        private usersRepository: Repository<UserEntity>,
         private jwtService: JwtService
     ) {
     }
@@ -22,7 +23,7 @@ export class AuthService {
     }
 
     async signUp(userCredentialDto: UserCredentialDto): Promise<void> {
-        const user = new User()
+        const user = new UserEntity()
         user.username = userCredentialDto.username
         user.salt = await bcrypt.genSalt();
         user.password = await AuthService._hashPassword(userCredentialDto.password, user.salt);
@@ -38,22 +39,34 @@ export class AuthService {
         }
     }
 
-    async signIn(userCredentialDto: UserCredentialDto): Promise<User> {
+    async signIn(userCredentialDto: UserCredentialDto): Promise<UserEntity> {
         try {
-            const user: User = await this.usersRepository.createQueryBuilder("user")
-                .andWhere("user.username = :username", {username: userCredentialDto.username})
-                .andWhere("user.deleted = false")
-                .getOneOrFail()
+            const user: UserEntity = await this.usersRepository.findOne({
+                where: {
+                    username: userCredentialDto.username,
+                    deleted: false
+                }
+            })
+
+            if (!user) {
+                throw new UnauthorizedException('لطفا نام کاربری و رمز عبور خود را چک کنید')
+            }
+
+            const username: string = await user.validatePassword(userCredentialDto.password)
 
             if (!user.approved) {
                 throw new UnauthorizedException('نام کاربری شما تایید نشده است')
             }
 
-            user.accessToken = await this.jwtService.sign(await user.validatePassword(userCredentialDto.password))
+            const payload: JwtPayload = {username}
+            user.accessToken = await this.jwtService.sign(payload)
+
+            user.salt = user.password = undefined
+            await user.updateLastOnline();
 
             return user
         } catch (error) {
-            throw new UnauthorizedException(!error.response ? 'لطفا نام کاربری و رمز عبور خود را چک کنید' : error.response)
+            throw error
         }
     }
 

@@ -11,7 +11,7 @@ db:
   synchronize: true
 
 jwt:
-  expiresIn: 3600
+  expiresIn: 2.592e+6
   secret: 'Ho$$einSadeghi2000'
 
 

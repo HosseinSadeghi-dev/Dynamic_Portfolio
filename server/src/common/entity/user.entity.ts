@@ -1,24 +1,21 @@
 import {BaseEntity, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
-import {UserRole} from "./user.model";
+import {UserRole} from "../models/user.model";
 import * as bcrypt from 'bcrypt';
 import {UnauthorizedException} from "@nestjs/common";
-import {Exclude} from "class-transformer";
 
 @Entity('users')
 @Unique(['username'])
-export class User extends BaseEntity {
+export class UserEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     username: string;
 
-    @Column({select: false})
-    @Exclude()
+    @Column()
     password: string;
 
-    @Column({select: false})
-    @Exclude()
+    @Column()
     salt: string;
 
     @Column({default: UserRole.admin, nullable: true})
@@ -29,6 +26,9 @@ export class User extends BaseEntity {
 
     @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
     updated: Date;
+
+    @Column({ type: 'timestamp', nullable: true})
+    lastOnline: Date;
 
     @Column({select: false, default: false})
     deleted: boolean;
@@ -41,10 +41,15 @@ export class User extends BaseEntity {
         this.updated = new Date;
     }
 
-    accessToken: string
+    async updateLastOnline(): Promise<void> {
+        this.lastOnline = new Date();
+        await this.save()
+    }
+
+    accessToken: string;
 
     async validatePassword(password: string): Promise<string> {
-        if (this.password !== await bcrypt.hash(password, this.salt)) {
+        if (this.password != await bcrypt.hash(password, this.salt)) {
             throw new UnauthorizedException('لطفا نام کاربری و رمز عبور خود را چک کنید')
         }
         return this.username

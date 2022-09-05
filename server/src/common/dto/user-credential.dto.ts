@@ -1,5 +1,5 @@
 import {IsIn, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength} from "class-validator";
-import {UserRole} from "../../user/user.model";
+import {UserRole} from "../models/user.model";
 
 export class UserCredentialDto {
     @IsNotEmpty()

@@ -1,7 +1,7 @@
 import {Body, Controller, Post, ValidationPipe} from '@nestjs/common';
-import {AuthService} from "./auth.service";
-import {UserCredentialDto} from "./dto/user-credential.dto";
-import {User} from "../user/user.entity";
+import {AuthService} from "../services";
+import {UserCredentialDto} from "../dto/user-credential.dto";
+import {UserEntity} from "../entity";
 import {handleResponse} from "../../shared/functions";
 import {ResponseModel} from "../../shared/global.model";
 
@@ -17,14 +17,14 @@ export class AuthController {
     async signUp(
         @Body(ValidationPipe) userCredentialDto: UserCredentialDto
     ): Promise<ResponseModel> {
-        const user = await this.authService.signUp(userCredentialDto)
+        await this.authService.signUp(userCredentialDto)
         return handleResponse('با موفقیت ثبت شد!')
     }
 
     @Post('/sign-in')
     signIn(
         @Body(ValidationPipe) userCredentialDto: UserCredentialDto
-    ): Promise<User> {
+    ): Promise<UserEntity> {
         return this.authService.signIn(userCredentialDto)
     }
 
