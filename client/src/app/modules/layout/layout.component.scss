@@ -1,0 +1,39 @@
+.drawer-container {
+  overflow: unset !important;
+  z-index: 100;
+  min-height: 100vh;
+
+  #headerDrawer {
+    min-width: 15rem;
+    max-height: 100vh;
+    position: fixed;
+    z-index: 1000000;
+
+
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 10px -2px var(--custom-primary-color);
+
+    @media screen and (max-width: 959px) {
+      max-width: 100%;
+      min-width: 100%;
+    }
+  }
+
+  .light-drawer {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .dark-drawer {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .drawer-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: unset !important;
+    z-index: 10000;
+    position: unset !important;
+  }
+}

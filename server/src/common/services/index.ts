@@ -1,3 +1,5 @@
 export * from './blog.service'
 export * from './auth.service'
 export * from './user.service'
+export * from './project.service'
+export * from './setting.service'

@@ -1,5 +1,5 @@
 import {IsBoolean, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString} from "class-validator";
-import {UserRole} from "./user.model";
+import {UserRole} from "../models/user.model";
 import {Transform} from "class-transformer";
 
 export class UsersFilterDto {

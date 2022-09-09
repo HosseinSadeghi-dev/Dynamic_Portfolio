@@ -1,0 +1,38 @@
+.upload-image {
+
+  .imageToShow {
+    position: relative;
+    max-height: 100%;
+
+    img {
+      max-height: 100%;
+    }
+
+    button {
+      position: absolute;
+      top: 5px;
+      z-index: 10;
+      &.delete-image-btn {
+        left: 50px;
+      }
+      &.change-image-btn {
+        left: 5px;
+      }
+    }
+
+
+
+  }
+
+  .image-section {
+    border: 1px solid #777777;
+    border-radius: 5px;
+  }
+
+  .image-hint {
+    color: red;
+    opacity: 0.8;
+    font-size: 14px;
+  }
+
+}

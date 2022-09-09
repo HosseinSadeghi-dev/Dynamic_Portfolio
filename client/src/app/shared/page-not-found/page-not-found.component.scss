@@ -1,0 +1,16 @@
+.page-404 {
+  width: 100%;
+  min-height: 100vh;
+
+  img {
+    max-width: 500px;
+    @media screen and (max-width: 550px) {
+      max-width: 100%;
+    }
+  }
+
+  .go-home {
+    color: #f44336;
+    margin-right: 1rem;
+  }
+}

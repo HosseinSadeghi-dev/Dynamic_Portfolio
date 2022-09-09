@@ -1,0 +1,164 @@
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('IRANSans'),
+  url('../fonts/IRANSans/IRANSans.woff2') format('woff2'),
+  url('../fonts/IRANSans/IRANSans.woff') format('woff');
+}
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('iranyekan'),
+  local('IRANYekan'),
+  url('../fonts/iranyekan/iranyekan.woff2') format('woff2'),
+  url('../fonts/iranyekan/iranyekan.woff') format('woff');
+}
+
+@font-face {
+  font-family: shabnam;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('shabnam'),
+  url('../fonts/shabnam/shabnam.woff2') format('woff2'),
+  url('../fonts/shabnam/shabnam.woff') format('woff');
+}
+
+@font-face {
+  font-family: vazir;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('vazir'),
+  url('../fonts/vazir/vazir.woff2') format('woff2'),
+  url('../fonts/vazir/vazir.woff') format('woff');
+}
+
+@font-face {
+  font-family: DigiDelbar;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('DigiDelbar'),
+  url('../fonts/DigiDelbar/DigiDelbar.otf') format('opentype'),
+  url('../fonts/DigiDelbar/DigiDelbar.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: B Koodak;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('B Koodak'),
+  url('../fonts/B_Koodak/B_Koodak.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: B Ziba;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('B Ziba'),
+  url('../fonts/B_Ziba/B_Ziba.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Far Badr;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('Far Badr'),
+  url('../fonts/Far_Badr/Far_Badr.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Far DastNevis;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('Far DastNevis'),
+  local('DastNevis'),
+  url('../fonts/Far_DastNevis/Far_DastNevis.otf') format('opentype');
+}
+
+@font-face {
+  font-family: Far Nazanin;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('Far Nazanin'),
+  url('../fonts/Far_Nazanin/Far_Nazanin.ttf') format('truetype');
+}
+
+body,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+select,
+option,
+button,
+.mat-expansion-panel-content,
+.mat-paginator-range-label,
+.mat-paginator-page-size-label,
+.mat-calendar-table-header *,
+.mat-calendar-body *,
+.validSnackBar,
+mat-error,
+mat-hint,
+.mat-snackbar-container,
+.mat-tab-label-content,
+.mat-simple-snackbar,
+.mat-input-element,
+mat-card-title,
+.mat-header-cell,
+.mat-cell,
+.mat-list-item,
+label,
+.mat-tab-group,
+mat-tree-node,
+mat-radio-button,
+.mat-menu-item,
+mat-button-toggle,
+mat-toolbar,
+textarea,
+mat-chip,
+mat-card {
+  $font-family: var(--font-family), sans-serif !important;
+  font-family: $font-family;
+}
+
+.en, .es {
+
+  .label {
+    text-align: left !important;
+  }
+
+  .mat-menu-item {
+    text-align: left !important;
+  }
+
+  .social-item, .widget-footer-menu {
+    direction: ltr !important;
+  }
+
+  mat-form-field {
+    direction: rtl !important;
+    text-align: left !important;
+
+    * {
+      direction: rtl !important;
+      text-align: left !important;
+    }
+  }
+}

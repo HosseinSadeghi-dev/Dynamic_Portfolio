@@ -1,8 +1,9 @@
-import {BaseEntity, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
 import {BlogStatus} from "../models/blog.model";
 
 
 @Entity('blogs')
+@Unique(['image'])
 export class BlogEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -10,14 +11,11 @@ export class BlogEntity extends BaseEntity {
     @Column()
     title: string;
 
+    @Column()
+    description: string;
+
     @Column({nullable: true})
     image: string;
-
-    @Column({nullable: true})
-    file: string;
-
-    @Column({nullable: true})
-    description: string;
 
     @Column({default: BlogStatus.published})
     status: BlogStatus;

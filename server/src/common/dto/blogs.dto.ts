@@ -38,14 +38,25 @@ export class NewBlogDto {
     @IsNotEmpty({message: 'توضیحات بلاگ نباید خالی باشد'})
     description: string
 
-    @IsNotEmpty({message: 'بلاگ باید عکس داشته باشد'})
-    image: string
-
     @IsOptional()
     @IsIn([BlogStatus])
     status: BlogStatus
 
+}
+
+export class EditBlogDto {
+
+    @IsNotEmpty({message: 'عنوان بلاگ نباید خالی باشد'})
+    title: string
+
+    @IsNotEmpty({message: 'توضیحات بلاگ نباید خالی باشد'})
+    description: string
+
     @IsOptional()
-    file: string
+    imageDeleted: boolean
+
+    @IsOptional()
+    @IsIn([BlogStatus])
+    status: BlogStatus
 
 }

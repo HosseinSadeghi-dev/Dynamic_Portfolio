@@ -1,0 +1,12 @@
+<img
+  [class]="'img-fluid ' + addClass"
+  [defaultImage]="defaultImage"
+  [lazyLoad]="src"
+  [alt]="alt"
+  [title]="title"
+  (load)="onLoad()"
+  [height]="height ? height : 200"
+  [width]="width ? width : 200"
+  #img
+  style="max-height: inherit;"
+>

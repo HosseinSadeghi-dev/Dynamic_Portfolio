@@ -1,0 +1,51 @@
+<div fxLayout="column" fxLayoutAlign="start stretch"
+     class="upload-image" fxLayoutGap="10px">
+
+  <div class="image-section" fxFill
+       [ngStyle]="{'height': componentHeight ? (componentHeight + 'px') : 'auto'}"
+       fxLayout="column" fxLayoutAlign="start stretch">
+
+    <div *ngIf="imageToShow || inputImage" class="imageToShow"
+         fxLayout="column" fxLayoutAlign="center center">
+      <button mat-mini-fab color="accent" (click)="selectImage()" class="change-image-btn">
+        <mat-icon>party_mode</mat-icon>
+      </button>
+      <button *ngIf="hasDelete" mat-mini-fab color="warn"
+              class="delete-image-btn" (click)="deleted.emit(true)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <img *ngIf="inputImage && !imageToShow" [src]="inputImage" alt="inputImage" class="img-fluid">
+      <img *ngIf="!inputImage && imageToShow" [src]="imageToShow" alt="newPic" class="img-fluid">
+    </div>
+
+    <div *ngIf="!inputImage && !imageToShow" class="imageToShow"
+         fxFill fxLayoutAlign="center center">
+      <button mat-mini-fab color="accent"
+              class="change-image-btn" (click)="selectImage()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <b class="text-center" *ngIf="title">
+    {{title }}
+  </b>
+
+  <div class="image-hint" fxLayoutGap="5px"
+       fxLayout="column" fxLayoutAlign="start stretch">
+    <span *ngIf="bestAspect">
+      {{'بهترین ابعاد مناسب عکس (نسبت عرض به ارتفاع):' }}
+      <b>{{bestAspect}}</b>
+    </span>
+    <span *ngIf="bestHeight">
+      {{'بهترین ارتفاع مناسب عکس:' }}
+      <b>{{bestHeight}}px</b>
+    </span>
+    <span *ngIf="bestWidth">
+      {{'بهترین عرض مناسب عکس:' }}
+      <b>{{bestWidth}}px</b>
+    </span>
+  </div>
+
+</div>

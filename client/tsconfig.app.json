@@ -11,5 +11,20 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ]
+  ],
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts",
+    "typings/browser.d.ts",
+    "typings/browser",
+    "node_modules"
+  ],
+  "paths": {
+    "@app/*": [
+      "src/app/*"
+    ],
+    "@env/*": [
+      "src/environments/*"
+    ]
+  }
 }

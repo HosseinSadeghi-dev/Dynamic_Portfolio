@@ -3,7 +3,7 @@ import {UserEntity} from "../entity";
 import {Repository, SelectQueryBuilder} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Pagination} from "../../shared/paginate";
-import {CreateUserDto, UsersFilterDto} from "../models/users.dto";
+import {CreateUserDto, UsersFilterDto} from "../dto/users.dto";
 import {AuthService} from "./auth.service";
 import {UserRole} from "../models/user.model";
 
@@ -26,6 +26,7 @@ export class UserService {
         query.role && qb.andWhere('(user.role = :role)', {role: query.role})
         query.pageSize && qb.take(query.pageSize);
         query.pageNumber && qb.skip(query.pageNumber * query.pageSize);
+
 
         return new Pagination<UserEntity> ({
             results: await qb.getMany(),

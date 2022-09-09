@@ -13,7 +13,7 @@ import {
 import {UserService} from "../services";
 import {UserEntity} from "../entity";
 import {Pagination} from "../../shared/paginate";
-import {ChangeApproveStatusDto, ChangeUserRoleDto, CreateUserDto, UsersFilterDto} from "../models/users.dto";
+import {ChangeApproveStatusDto, ChangeUserRoleDto, CreateUserDto, UsersFilterDto} from "../dto/users.dto";
 import {handleResponse} from "../../shared/functions";
 import {AuthGuard} from "@nestjs/passport";
 import {GetUser} from "../../shared/decorators/get-user.decorator";
@@ -33,7 +33,6 @@ export class UserController {
         @GetUser() user: UserEntity,
         @Query(ValidationPipe) usersQuery: UsersFilterDto
     ): Promise<Pagination<UserEntity>> {
-        console.log('user', user)
         return await this.userService.getUsers(usersQuery)
     }
 

@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutAlign="space-between stretch"
+     class="container header-drawer h-100">
+
+  <div fxLayout="row" class="logo-drawer"
+       fxLayoutAlign.gt-md="center center"
+       fxLayoutAlign.lt-md="space-between center">
+    <b>سایت</b>
+    <button mat-icon-button color="warn"
+            *ngIf="appService.windowWidth < 959"
+            (click)="appService.headerSidenav = sidenavStatus.close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="start stretch"
+       class="drawer-links" fxLayoutGap="7px">
+    <a *ngFor="let link of links"
+       [routerLink]="link.link" routerLinkActive="active-header-link"
+       [routerLinkActiveOptions]="{exact:true}"
+       class="p-2 text-center" (click)="appService.headerSidenav = sidenavStatus.close">
+      {{link.name}}
+    </a>
+  </div>
+
+</div>
