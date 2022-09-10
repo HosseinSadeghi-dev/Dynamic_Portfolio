@@ -1,7 +1,4 @@
-<div [ngClass]="[
-settingService.setTheme(settingService.setting.primaryColor, settingService.setting.accentColor),
-settingService.setFont(settingService.setting.font)
-]">
+<div [ngClass]="[settingService.setTheme(),settingService.setFont()]">
   <router-outlet>
     <loading></loading>
     <scroll-to-top></scroll-to-top>

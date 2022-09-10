@@ -1,7 +1,8 @@
-<div fxLayout="column" fxLayoutAlign="center center" class="page-404">
+<div fxLayout="column" fxLayoutAlign="center center"
+     [ngClass]="{'dark-404': appService.theme == 'dark'}" class="page-404">
   <img src="../../../assets/static/img/404.svg" alt="404">
   <h2 class="text-center">
-    صفحه مورد نظر وجود ندارد شما می توانید
+    <span>صفحه مورد نظر وجود ندارد شما می توانید</span>
     <br>
     <a class="go-home" routerLink="/">
       از اینجا به صفحه اصلی بازگردید

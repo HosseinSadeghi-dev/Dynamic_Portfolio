@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutAlign="start stretch"
+     class="my-4 container" fxLayoutGap="2rem">
+
+  <div class="section-title text-center">
+    <h2>مقالات</h2>
+    <span class="title-bg">blog</span>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+    <mat-card *ngFor="let blog of blogs.results" fxFlex="30%"
+              fxFlex.lt-md="49%" class="mb-3">
+      {{blog.title}}
+    </mat-card>
+  </div>
+
+</div>

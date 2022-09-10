@@ -1,0 +1,29 @@
+.contact-me-ways {
+
+  .contact-way {
+    &:hover {
+      mat-icon {
+        background-color: var(--custom-primary-color);
+        color: white;
+      }
+    }
+    mat-icon {
+      transition: all 0.3s ease-in-out;
+      border: 1px solid white;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+  }
+
+  .social-medias {
+    a {
+      &:hover {
+        animation-name: shake;
+        animation-duration: 10s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+    }
+  }
+
+}

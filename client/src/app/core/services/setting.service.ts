@@ -6,6 +6,7 @@ import {SettingModel} from "../models/setting.model";
 import {Meta} from "@angular/platform-browser";
 import {AppService} from "./app.service";
 import {DOCUMENT} from "@angular/common";
+import {_document} from "../../shared/global/global-variable";
 
 @Injectable({
   providedIn: 'root'
@@ -33,23 +34,24 @@ export class SettingService {
 
   set setting(setting: SettingModel) {
     this._setting = setting
-    this.setFont(setting.font)
-    this.setTheme(setting.primaryColor, setting.accentColor)
+    this.setFont()
+    this.setTheme()
+    this.setLogoFav()
   }
 
   get setting(): SettingModel {
     return this._setting
   }
 
-  setTheme(primary: string, accent: string): string {
+  setTheme(): string {
     this.document.documentElement.style
-      .setProperty('--custom-primary-color', primary);
+      .setProperty('--custom-primary-color', this.setting.primaryColor);
 
     this.document.documentElement.style
-      .setProperty('--custom-accent-color', accent);
+      .setProperty('--custom-accent-color', this.setting.accentColor);
 
     this.meta.updateTag(
-      {name: 'theme-color', content: primary},
+      {name: 'theme-color', content: this.setting.primaryColor},
       'name=theme-color'
     )
 
@@ -64,11 +66,18 @@ export class SettingService {
     }
   }
 
-  setFont(font: string): string {
+  setFont(): string {
     this.document.documentElement.style
-      .setProperty('--font-family', font);
+      .setProperty('--font-family', this.setting.font);
     this.renderer.addClass(this.document.body, 'custom-font')
     return 'custom-font'
+  }
+
+  setLogoFav() {
+    const faviconEl: any = _document.getElementById('favicon');
+    const appleTouchIcon: any = _document.getElementById('apple-touch-icon');
+    faviconEl.href = this.setting.logo;
+    appleTouchIcon.href = this.setting.logo;
   }
 
   // https services
@@ -81,7 +90,7 @@ export class SettingService {
   }
 
   editSetting(setting: SettingModel): Observable<SettingModel> {
-    return this.httpClient.put("setting", setting).pipe(
+    return this.httpClient.put("/setting", setting).pipe(
       map((response: any) => response),
       catchError((error: HttpErrorResponse) => throwError(error))
     );

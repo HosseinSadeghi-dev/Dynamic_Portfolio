@@ -30,7 +30,7 @@ import {HeaderDrawerModule} from "./shared/header-drawer/header-drawer.module";
       registrationStrategy: 'registerWhenStable:30000'
     }),
     SharedModule,
-    HeaderDrawerModule
+    HeaderDrawerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {SidenavStatus} from "../../core/models/global.model";
 import {AppService} from "../../core/services/app.service";
+import {SettingService} from "../../core/services/setting.service";
+import {SocialMediaService} from "../../core/services/social-media.service";
 
 @Component({
   selector: 'header-drawer',
@@ -21,14 +23,26 @@ export class HeaderDrawerComponent implements OnInit {
       name: 'خانه',
     },
     {
+      link: '/about',
+      name: 'درباره من',
+    },
+    {
+      link: '/projects',
+      name: 'کارهای من',
+    },
+    {
       link: '/blogs',
-      name: 'بلاگ',
+      name: 'مقالات',
+    },
+    {
+      link: '/contact',
+      name: 'ارتباط با من',
     },
   ]
 
   constructor(
     public appService: AppService,
-    private dialog: MatDialog,
+    public settingService: SettingService,
   ) {
   }
 

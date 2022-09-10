@@ -1,4 +1,12 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit, Renderer2} from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  Renderer2
+} from '@angular/core';
 import {SEOModel} from "./core/models/global.model";
 import {CredentialsService} from "./core/services/credentials.service";
 import {SwUpdate} from "@angular/service-worker";
@@ -8,6 +16,7 @@ import {SeoService} from "./core/services/seo.service";
 import {DOCUMENT} from "@angular/common";
 import {_window} from "./shared/global/global-variable";
 import {SettingService} from "./core/services/setting.service";
+import {SocialMediaService} from "./core/services/social-media.service";
 
 @Component({
   selector: 'app-root',
@@ -28,12 +37,14 @@ export class AppComponent implements OnInit, AfterContentChecked {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private seoService: SeoService,
-    public settingService: SettingService
+    public settingService: SettingService,
+    private socialMediaService: SocialMediaService
   ) {
   }
 
   ngOnInit(): void {
-    this.settingService.initSetting()
+    this.settingService.initSetting();
+    this.socialMediaService.initSocials();
   }
 
   ngAfterContentChecked(): void {

@@ -20,18 +20,18 @@ export class SettingService {
         return _setting[0]
     }
 
-    async editSetting(settingDto: SettingDto): Promise<SettingEntity> {
+    async editSetting(settingDto: SettingDto, logo): Promise<SettingEntity> {
         try {
             let _setting: SettingEntity = await this.getSetting()
             if (!_setting) {
                 _setting = new SettingEntity(settingDto)
             } else {
-                _setting.fullName = settingDto.fullName
-                _setting.phoneNumber = settingDto.phoneNumber
-                _setting.email = settingDto.email
                 _setting.primaryColor = settingDto.primaryColor
                 _setting.accentColor = settingDto.accentColor
                 _setting.font = settingDto.font
+            }
+            if (logo) {
+                _setting.logo = `assets${logo?.destination.split("assets")[1]}/${logo?.filename}`
             }
             return await _setting.save()
         } catch (e) {

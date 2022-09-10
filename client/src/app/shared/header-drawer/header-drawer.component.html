@@ -1,25 +1,33 @@
 <div fxLayout="column" fxLayoutAlign="space-between stretch"
-     class="container header-drawer h-100">
+     class="header-drawer h-100">
 
-  <div fxLayout="row" class="logo-drawer"
-       fxLayoutAlign.gt-md="center center"
-       fxLayoutAlign.lt-md="space-between center">
-    <b>سایت</b>
+  <div fxLayout="row" fxHide.gt-md
+       fxLayoutAlign="end center">
     <button mat-icon-button color="warn"
-            *ngIf="appService.windowWidth < 959"
             (click)="appService.headerSidenav = sidenavStatus.close">
       <mat-icon>close</mat-icon>
     </button>
   </div>
+
+  <image-lazy class="p-3"
+              [src]="settingService.setting.logo"
+              [alt]="settingService.setting.logo"></image-lazy>
 
   <div fxLayout="column" fxLayoutAlign="start stretch"
        class="drawer-links" fxLayoutGap="7px">
     <a *ngFor="let link of links"
        [routerLink]="link.link" routerLinkActive="active-header-link"
        [routerLinkActiveOptions]="{exact:true}"
-       class="p-2 text-center" (click)="appService.headerSidenav = sidenavStatus.close">
+       class="p-2 text-center" (click)="appService.windowWidth < 959 ? (appService.headerSidenav = sidenavStatus.close) : null">
       {{link.name}}
     </a>
   </div>
+
+  <label class="switch">
+    <input class="switch__checkbox" [checked]="appService.theme == 'dark'"
+           (click)="appService.toggleTheme()" type="checkbox">
+    <span class="switch__toggle"></span>
+    Toggle dark mode
+  </label>
 
 </div>

@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 import {SettingDto} from "../dto/setting.dto";
 
 @Entity('setting')
@@ -8,10 +8,6 @@ export class SettingEntity extends BaseEntity {
         settingDto?: SettingDto
     ) {
         super();
-
-        this.fullName = settingDto?.fullName
-        this.phoneNumber = settingDto?.phoneNumber
-        this.email = settingDto?.email
         this.primaryColor = settingDto?.primaryColor
         this.accentColor = settingDto?.accentColor
         this.font = settingDto?.font
@@ -21,15 +17,6 @@ export class SettingEntity extends BaseEntity {
     id: number;
 
     @Column()
-    fullName: string;
-
-    @Column()
-    phoneNumber: string;
-
-    @Column()
-    email: string;
-
-    @Column()
     primaryColor: string;
 
     @Column()
@@ -37,5 +24,8 @@ export class SettingEntity extends BaseEntity {
 
     @Column()
     font: string;
+
+    @Column({nullable: true})
+    logo: string;
 
 }

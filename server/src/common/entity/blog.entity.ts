@@ -29,9 +29,6 @@ export class BlogEntity extends BaseEntity {
     @Column({default: 0})
     seen: number;
 
-    // @Column({default: 0})
-    // liked: number;
-
     @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
     created: Date;
 

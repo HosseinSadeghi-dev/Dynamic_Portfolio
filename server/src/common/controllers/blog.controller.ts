@@ -4,7 +4,7 @@ import {
     Get, Param, ParseIntPipe, Patch,
     Post, Put,
     Query,
-    UploadedFile, UploadedFiles,
+    UploadedFile,
     UseGuards,
     UseInterceptors,
     ValidationPipe
@@ -14,7 +14,7 @@ import {Pagination} from "../../shared/paginate";
 import {BlogsFilterDto, EditBlogDto, NewBlogDto} from "../dto/blogs.dto";
 import {BlogEntity, UserEntity} from "../entity";
 import {AuthGuard} from "@nestjs/passport";
-import {FileInterceptor, FilesInterceptor} from "@nestjs/platform-express";
+import {FileInterceptor} from "@nestjs/platform-express";
 import {editFileName, imageFileFilter} from "../../shared/utils/file-uploading.utils";
 import {diskStorage} from 'multer'
 import {of} from "rxjs";
@@ -103,10 +103,10 @@ export class BlogController {
     @Patch(':id')
     @UseGuards(AuthGuard())
     async editBlogStatus(
-        @Body(ValidationPipe) status: BlogStatus,
+        @Body(ValidationPipe) body: { status: BlogStatus },
         @Param('id', ParseIntPipe) id: number
     ): Promise<ResponseModel> {
-        await this.blogService.changeBlogStatus(id, status)
+        await this.blogService.changeBlogStatus(id, body.status)
         return handleResponse('با موفقیت ویرایش شد!')
     }
 

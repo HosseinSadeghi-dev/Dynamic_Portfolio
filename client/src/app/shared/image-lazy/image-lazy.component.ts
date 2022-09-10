@@ -12,7 +12,7 @@ export class ImageLazyComponent implements OnInit {
   @Input() alt: string = 'alternative';
   @Input() addClass: string = '';
   @Input() title: string = 'title';
-  defaultImage = 'assets/img/image-loader.svg';
+  defaultImage = 'assets/static/img/image-loader.svg';
   width: number = 0;
   height: number = 0;
 

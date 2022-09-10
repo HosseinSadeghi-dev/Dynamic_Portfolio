@@ -19,13 +19,15 @@ export class LayoutComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
+    this.appService.headerSidenav.subscribe(status => {
+      if (status == SidenavStatus.open) {
+        this.headerDrawer.open()
+      } else if (status == SidenavStatus.close) {
+        this.headerDrawer.close()
+      }
+    })
     if (this.appService.windowWidth < 959) {
-      this.appService.headerSidenav.subscribe(status => {
-        if (status == SidenavStatus.open) {
-        } else if (status == SidenavStatus.close) {
-          this.headerDrawer.close()
-        }
-      })
+      this.headerDrawer.close()
     } else {
       this.headerDrawer.open()
     }

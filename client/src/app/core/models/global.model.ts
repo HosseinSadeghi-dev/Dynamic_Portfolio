@@ -1,10 +1,3 @@
-export interface PaginationModel {
-  PAGE_NUMBER?: number
-  PAGE_SIZE?: number
-  TOTAL_COUNT?: number
-  TOTAL_PAGES?: number
-}
-
 export interface SEOModel {
   title: string,
   description?: string,

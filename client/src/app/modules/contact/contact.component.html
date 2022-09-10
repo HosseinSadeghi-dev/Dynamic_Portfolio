@@ -1,0 +1,90 @@
+<div fxLayout="column" fxLayoutAlign="start stretch"
+     class="my-4 container" fxLayoutGap="2rem">
+
+  <div class="section-title text-center">
+    <h2>ارتباط با من</h2>
+    <span class="title-bg">contact</span>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap.lt-md="1.5rem"
+       fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch">
+
+    <div fxFlex.gt-md="40%" fxLayout="column" fxLayoutGap="2rem"
+         fxLayoutAlign="start stretch" class="contact-me-ways">
+
+      <p>
+        با خیال راحت با من در تماس باشید. من همیشه آماده بحث در مورد پروژه های جدید، ایده های خلاقانه یا فرصت هایی هستم
+        تا بخشی از چشم اندازهای شما باشم.
+      </p>
+
+      <div fxLayout="row" fxLayoutAlign="start center"
+           class="contact-way" fxLayoutGap="5px">
+        <mat-icon>call</mat-icon>
+        <a href="tel:+989382024302" dir="ltr">
+          +989382024302
+        </a>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center"
+           class="contact-way" fxLayoutGap="5px">
+        <mat-icon>mail</mat-icon>
+        <a href="tel:sadeghiHossein.hs@gmail.com" dir="ltr">
+          sadeghiHossein.hs@gmail.com
+        </a>
+      </div>
+
+      <div fxLayout="row wrap" class="social-medias"
+           fxLayoutAlign="space-around center">
+        <a [href]="social.link" fxFlex="10%"
+           *ngFor="let social of socialMediaService.socialMedias">
+          <img [src]="social.logo" [alt]="social.title" class="img-fluid">
+        </a>
+      </div>
+
+    </div>
+
+    <form [formGroup]="contactForm" fxLayout="column" fxFlex.gt-md="48%"
+          fxLayoutAlign="start stretch" fxLayoutGap="10px">
+
+      <div fxLayout="row" fxLayoutAlign="space-between center"
+           fxLayout.lt-md="column"
+           fxLayoutAlign.lt-md="start stretch" fxLayoutGap.lt-md="10px">
+        <mat-form-field appearance="outline" fxFlex.gt-md="49%">
+          <mat-label>نام و نام خانوادگی</mat-label>
+          <input formControlName="name" type="text"
+                 placeholder="نام و نام خانوادگی" matInput autocomplete="off">
+          <mat-error>انتخاب این فیلد اجباری است</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex.gt-md="49%">
+          <mat-label>ایمیل</mat-label>
+          <input formControlName="email" type="email"
+                 placeholder="ایمیل" matInput autocomplete="off">
+          <mat-error>انتخاب این فیلد اجباری است</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>موضوع</mat-label>
+        <input formControlName="subject" type="text"
+               placeholder="موضوع" matInput autocomplete="off">
+        <mat-error>انتخاب این فیلد اجباری است</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>متن پیام</mat-label>
+        <textarea formControlName="message" type="text" rows="8"
+                  placeholder="متن پیام" matInput autocomplete="off"></textarea>
+        <mat-error>انتخاب این فیلد اجباری است</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary"
+              (click)="submit()">
+        ارسال پیام
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

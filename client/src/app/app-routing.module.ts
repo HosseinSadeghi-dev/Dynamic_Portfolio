@@ -7,7 +7,20 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    children: []
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./modules/landing/landing.module').then(m => m.LandingModule)
+      },
+      {
+        path: 'contact',
+        loadChildren: () => import('./modules/contact/contact.module').then(m => m.ContactModule)
+      },
+      {
+        path: 'blogs',
+        loadChildren: () => import('./modules/blogs/blogs.module').then(m => m.BlogsModule)
+      },
+    ]
   },
   {
     path: 'undefined',

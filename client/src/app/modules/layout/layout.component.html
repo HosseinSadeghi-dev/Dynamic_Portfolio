@@ -1,4 +1,4 @@
-<mat-drawer-container autosize class="drawer-container">
+<mat-drawer-container autosize [hasBackdrop]="false" class="drawer-container">
 
   <mat-drawer #headerDrawer [mode]="appService.windowWidth > 959 ? 'side' : 'over'"
               [ngClass]="[appService.theme == 'dark' ? 'dark-drawer' : 'light-drawer',]"
@@ -8,8 +8,7 @@
   </mat-drawer>
 
   <mat-drawer-content class="drawer-content">
-<!--    <router-outlet></router-outlet>-->
-    layout-works !
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 
 </mat-drawer-container>

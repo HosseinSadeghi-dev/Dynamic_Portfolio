@@ -22,19 +22,19 @@
 
 @media (min-width: 576px) {
   .container {
-    max-width: 540px !important;
+    max-width: 540px;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    max-width: 720px !important;
+    max-width: 720px;
   }
 }
 
 @media (min-width: 992px) {
   .container {
-    max-width: 960px !important;
+    max-width: 960px;
   }
 }
 
@@ -50,28 +50,12 @@
   }
 }
 
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px !important;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px !important;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px !important;
-  }
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .rounded-sm {
@@ -112,10 +96,6 @@
 
 .rounded-pill {
   border-radius: 50rem !important;
-}
-
-.rounded-boneh {
-  border-radius: 25px !important;
 }
 
 .rounded-0 {
@@ -218,14 +198,6 @@
   max-height: 100% !important;
 }
 
-.mh-100vh {
-  max-height: 100vh !important;
-}
-
-.mh-fit-content {
-  max-height: fit-content !important;
-}
-
 .min-vw-100 {
   min-width: 100vw !important;
 }
@@ -241,7 +213,6 @@
 .vh-100 {
   height: 100vh !important;
 }
-
 .m-0 {
   margin: 0 !important;
 }
@@ -682,10 +653,6 @@
   white-space: normal !important;
 }
 
-.text-preWrap {
-  white-space: pre-wrap !important;
-}
-
 .text-nowrap {
   white-space: nowrap !important;
 }
@@ -707,12 +674,10 @@
 .text-center {
   text-align: center !important;
 }
-
 .list-unstyled {
   padding-left: 0;
   list-style: none;
 }
-
 a {
   color: inherit;
   text-decoration: none;
@@ -733,7 +698,6 @@ a:not([href]):hover {
   color: inherit;
   text-decoration: none;
 }
-
 .list-inline {
   padding-left: 0;
   list-style: none;
@@ -751,30 +715,10 @@ a:not([href]):hover {
   width: auto !important;
 }
 
-.ltr {
+.ltr{
   direction: ltr !important;
 }
 
-.rtl {
+.rtl{
   direction: rtl !important;
-}
-
-.f-lighter {
-  font-weight: lighter;
-}
-
-.f-normal {
-  font-weight: normal;
-}
-
-.f-bold {
-  font-weight: bold;
-}
-
-.f-bolder {
-  font-weight: bolder;
-}
-
-.bt-square {
-  aspect-ratio: 1;
 }

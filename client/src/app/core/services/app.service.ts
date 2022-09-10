@@ -11,11 +11,11 @@ export class AppService {
 
   private _loading: Subject<boolean> = new Subject<boolean>();
   private _headerSidenavStatus: Subject<SidenavStatus> = new Subject<SidenavStatus>();
-  private _theme: 'dark' | 'light' = 'dark';
+  private _theme: string = localStorage.getItem('_theme') || 'light';
   windowWidth: number = _window.innerWidth
 
-  constructor(
-  ) {}
+  constructor() {
+  }
 
   // services
 
@@ -28,11 +28,12 @@ export class AppService {
   }
 
   set theme(theme: 'dark' | 'light') {
+    localStorage.setItem('_theme', theme)
     this._theme = theme
   }
 
   get theme(): 'dark' | 'light' {
-    return this._theme
+    return this._theme as 'dark' | 'light'
   }
 
   set headerSidenav(status: SidenavStatus | any) {
@@ -41,6 +42,14 @@ export class AppService {
 
   get headerSidenav(): Subject<SidenavStatus> {
     return this._headerSidenavStatus
+  }
+
+  toggleTheme(): void {
+    if (this.theme == 'light') {
+      this.theme = 'dark'
+    } else {
+      this.theme = 'light'
+    }
   }
 
   refresh = () => _window.location.reload()
