@@ -1,6 +1,6 @@
 .landing {
   background: rgb(255,255,255);
-  background: linear-gradient(315deg, rgba(255,255,255,0) 50%, var(--custom-primary-color) 100%);
+  background: linear-gradient(315deg, rgba(255,255,255,0) 60%, var(--custom-primary-color) 100%);
 
   .landing-section {
     .contain {
@@ -29,7 +29,7 @@
 
     .content {
       position: relative;
-      color: red;
+      color: var(--custom-accent-color);
       font-size: 20px;
 
       &__container {

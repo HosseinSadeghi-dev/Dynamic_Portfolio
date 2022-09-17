@@ -12,7 +12,7 @@ import {
 import {Pagination} from "../../shared/paginate";
 import {ProjectEntity, UserEntity} from "../entity";
 import {AuthGuard} from "@nestjs/passport";
-import {FileInterceptor, FilesInterceptor} from "@nestjs/platform-express";
+import {FileInterceptor} from "@nestjs/platform-express";
 import {editFileName, imageFileFilter} from "../../shared/utils/file-uploading.utils";
 import {diskStorage} from 'multer'
 import {GetUser} from "../../shared/decorators/get-user.decorator";

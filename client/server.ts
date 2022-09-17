@@ -1,18 +1,40 @@
+///Handle Error local storage & document & window not defined
+import 'localstorage-polyfill';
+
+const MockBrowser = require('mock-browser').mocks.MockBrowser;
+const mock = new MockBrowser();
+
+global['localStorage'] = localStorage;
+global['document'] = mock.getDocument();
+global['window'] = mock.getWindow();
+
+Object.defineProperty(document.body.style, 'transform', {
+  value: () => {
+    return {
+      enumerable: true,
+      configurable: true
+    };
+  },
+});
+
+//////////////////////////////////////
+
 import 'zone.js/dist/zone-node';
 
-import { ngExpressEngine } from '@nguniversal/express-engine';
+import {ngExpressEngine} from '@nguniversal/express-engine';
 import * as express from 'express';
-import { join } from 'path';
+import {join} from 'path';
 
-import { AppServerModule } from './src/main.server';
-import { APP_BASE_HREF } from '@angular/common';
-import { existsSync } from 'fs';
+import {AppServerModule} from './src/main.server';
+import {APP_BASE_HREF} from '@angular/common';
+import {existsSync} from 'fs';
+import {_document, _window} from "./src/app/shared/global/global-variable";
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/dynamic-portfolio/browser');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+  const indexHtml = existsSync(join(distFolder, 'index.html')) ? 'index.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -31,7 +53,21 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    // if ((/(google|bing|yahoo|slurp|facebot|duckduck)/gi).test(<string>req.headers['user-agent'])) {
+    //   res.render(indexHtml, {
+    //     req,
+    //     providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}]
+    //   });
+    // } else {
+    //   res.sendFile(join(distFolder, 'index.html'));
+    // }
+
+    res.render(
+      indexHtml, {
+        req,
+        providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}]
+      });
+
   });
 
   return server;

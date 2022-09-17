@@ -1,7 +1,8 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
-import {AppService} from "./app.service";
 import {CookieService} from "./cookie.service";
+import {AuthService} from "./auth.service";
+import {NotificationService} from "./notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ export class CredentialsService {
 
   private credentialsKey = "_session";
   private _token!: string | null;
-  private _credentials: any;
 
   constructor(
     private router: Router,
-    private appService: AppService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private authService: AuthService,
+    private notificationService: NotificationService
   ) {
     const savedToken = this.cookieService.getCookie(this.credentialsKey);
     if (savedToken) {
@@ -23,17 +24,8 @@ export class CredentialsService {
     }
   }
 
-  set credentials(credentials: any) {
-    this._credentials = credentials
-    this.token = this._credentials.TOKEN
-  }
-
-  get credentials(): any {
-    return this._credentials
-  }
-
   set token(token: string) {
-    this.cookieService.setCookie(this.credentialsKey, token)
+    this.cookieService.setCookie(this.credentialsKey, token, 30)
     this._token = token
   }
 
@@ -42,19 +34,21 @@ export class CredentialsService {
   }
 
   get isAuthenticated(): boolean {
-    return !!this._token;
+    return !!this.token;
   }
 
-  get isAdmin(): boolean {
-    // return this.credentials?.ROLE_ID == UserRoles.admin
-    return false
+  login(username: string, password: string): void {
+    this.authService.signIn(username, password).subscribe(res => {
+      this.token = res.accessToken
+      this.router.navigate(['/admin']).then(() => {
+        this.notificationService.notification("valid", 'خوش آمدید')
+      })
+    })
   }
 
   logout(): void {
     this.cookieService.deleteCookie(this.credentialsKey)
-    localStorage.removeItem(this.credentialsKey);
     this._token = null;
-    this._credentials = null;
     this.router.navigate(['/'])
   }
 

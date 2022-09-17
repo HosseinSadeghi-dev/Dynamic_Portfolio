@@ -2,32 +2,28 @@
   min-height: 100vh;
 
   #headerDrawer {
-    min-width: 150px;
-    max-width: 150px;
+    min-width: 200px;
+    max-width: 200px;
     max-height: 100vh;
-
-
-    backdrop-filter: blur(30px);
-    box-shadow: 0 0 10px -2px var(--custom-primary-color);
 
     @media screen and (max-width: 959px) {
       max-width: 100% !important;
       min-width: 100%;
     }
-  }
 
-  .light-drawer {
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .dark-drawer {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    @media screen and (min-width: 959px) {
+      background: transparent !important;
+    }
   }
 
   .drawer-content {
     max-height: 100vh;
+    .drawer-header {
+      position: sticky;
+      top: -1px;
+      //background: transparent;
+      z-index: 1;
+    }
   }
 
 }

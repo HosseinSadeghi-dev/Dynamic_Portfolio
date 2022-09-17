@@ -19,7 +19,7 @@ export class ScrollToTopComponent implements OnInit {
 
   @HostListener('window:scroll')
   onScroll() {
-    let y = _window.pageYOffset || _document.documentElement.scrollTop
+    let y = _window.pageYOffset || _document?.documentElement?.scrollTop
     if (y > 1000) {
       this.bottomPosition = '-3px';
     }

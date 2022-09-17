@@ -17,6 +17,9 @@ export class BlogEntity extends BaseEntity {
     @Column({nullable: true})
     image: string;
 
+    @Column({nullable: true})
+    keywords: string;
+
     @Column({default: BlogStatus.published})
     status: BlogStatus;
 
@@ -37,11 +40,6 @@ export class BlogEntity extends BaseEntity {
 
     @Column({select: false, default: false})
     deleted: boolean;
-
-    @BeforeUpdate()
-    updateTimestamp() {
-        this.updated = new Date;
-    }
 
     async moreSeen(): Promise<void> {
         this.seen += 1;

@@ -1,1 +1,108 @@
-<p>about works!</p>
+<div fxLayout="column" fxLayoutAlign="start stretch" [ngClass]="{'pt-4': !fromLanding}"
+     class="my-4 container" fxLayoutGap="2rem" *ngIf="personalService.personalDetail">
+
+  <div class="section-title text-center">
+    <h2>درباره من</h2>
+    <span class="title-bg">about me</span>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between stretch"
+       fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch" fxLayoutGap.lt-md="2rem">
+
+    <div fxLayout="column" fxFlex.gt-md="48%" class="personal-attributes"
+         fxLayoutAlign="start stretch" fxLayoutGap="1rem">
+      <b>اطلاعات شخصی</b>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-between stretch"
+           fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch">
+
+        <div class="personal-attribute" fxFlex="48%" fxLayoutGap="3px"
+             fxLayout="row" fxLayoutAlign="start center" *ngIf="personalService.personalDetail.fullName">
+          <span class="title">نام</span>
+          <span>:</span>
+          <span class="value">{{personalService.personalDetail.fullName}}</span>
+        </div>
+
+        <div class="personal-attribute" fxFlex="48%" fxLayoutGap="3px"
+             fxLayout="row" fxLayoutAlign="start center" *ngIf="personalService.personalDetail.phoneNumber">
+          <span class="title">نام</span>
+          <span>:</span>
+          <a class="value" dir="ltr"
+             [href]="'tel:' + personalService.personalDetail.phoneNumber">{{personalService.personalDetail.phoneNumber}}</a>
+        </div>
+
+        <div class="personal-attribute" fxFlex="48%" fxLayoutGap="3px"
+             fxLayout="row" fxLayoutAlign="start center" *ngIf="personalService.personalDetail.age">
+          <span class="title">سن</span>
+          <span>:</span>
+          <span class="value" dir="rtl">
+            {{personalService.personalDetail.age}}
+            سال
+          </span>
+        </div>
+
+        <div class="personal-attribute" fxFlex="48%" fxLayoutGap="3px"
+             fxLayout="row" fxLayoutAlign="start center" *ngIf="personalService.personalDetail.nationality">
+          <span class="title">ملیت</span>
+          <span>:</span>
+          <span class="value">{{personalService.personalDetail.nationality}}</span>
+        </div>
+
+        <div class="personal-attribute" fxFlex="48%" fxLayoutGap="3px"
+             fxLayout="row" fxLayoutAlign="start center" *ngIf="personalService.personalDetail.email">
+          <span class="title">ایمیل</span>
+          <span>:</span>
+          <a class="value" dir="ltr"
+             [href]="'mailto:' + personalService.personalDetail.email">{{personalService.personalDetail.email}}</a>
+        </div>
+
+        <div class="personal-attribute" fxFlex="48%" fxLayoutGap="3px"
+             fxLayout="row" fxLayoutAlign="start center" *ngIf="personalService.personalDetail.languages">
+          <span class="title">زبان ها</span>
+          <span>:</span>
+          <span class="value">{{personalService.personalDetail.languages}}</span>
+        </div>
+
+        <div class="personal-attribute" fxFlex="100%" fxLayoutGap="3px"
+             fxLayout="row" fxLayoutAlign="start center" *ngIf="personalService.personalDetail.address">
+          <span class="title">آدرس</span>
+          <span>:</span>
+          <span class="value">{{personalService.personalDetail.address}}</span>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+             fxFlex="30%" class="mb-3 skill-progress"
+             *ngFor="let skill of personalService.skills; let i = index">
+          <mat-progress-spinner
+            [color]="i % 2 == 0 ? 'primary' : 'accent' "
+            mode="determinate" strokeWidth="5"
+            [value]="skill.progress">
+          </mat-progress-spinner>
+          <span class="progress">{{skill.progress}}%</span>
+          <span>{{skill.title}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start center"
+         fxFlex.gt-md="49%" fxLayoutGap="15px">
+<!--      <pdf-viewer [src]="personalService.personalDetail.cv"-->
+<!--                  [render-text]="true"-->
+<!--                  *ngIf="personalService.personalDetail.cv"-->
+<!--                  [original-size]="false"-->
+<!--                  style="width:100%; min-height: 80vh; height: 100%"></pdf-viewer>-->
+      <a *ngIf="personalService.personalDetail.cv"
+         mat-stroked-button color="primary" download [href]="personalService.personalDetail.cv"
+         fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px"
+         class="cv-download-btn">
+        <mat-icon>download</mat-icon>
+        <span>دانلود رزومه</span>
+      </a>
+    </div>
+
+  </div>
+
+</div>

@@ -8,8 +8,14 @@ export class ProjectsFilterDto {
     searchText: string;
 
     @IsOptional()
-    @IsIn([ProjectStatus])
     status: ProjectStatus
+
+    @IsOptional()
+    @IsNotEmpty()
+    sort: string;
+
+    @IsOptional()
+    sortType: "ASC" | "DESC"
 
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
@@ -30,8 +36,13 @@ export class NewProjectDto {
     @IsNotEmpty({message: 'توضیحات پروژه نباید خالی باشد'})
     description: string
 
+    @IsNotEmpty({message: 'کلمات کلیدی پروژه نباید خالی باشد'})
+    keywords: string
+
+    @IsNotEmpty({message: 'لینک پروژه نباید خالی باشد'})
+    externalLink: string
+
     @IsOptional()
-    @IsIn([ProjectStatus])
     status: ProjectStatus
 
 }
@@ -44,11 +55,16 @@ export class EditProjectDto {
     @IsNotEmpty({message: 'توضیحات پروژه نباید خالی باشد'})
     description: string
 
+    @IsNotEmpty({message: 'کلمات کلیدی پروژه نباید خالی باشد'})
+    keywords: string
+
+    @IsNotEmpty({message: 'لینک پروژه نباید خالی باشد'})
+    externalLink: string
+
     @IsOptional()
     imageDeleted: boolean
 
     @IsOptional()
-    @IsIn([ProjectStatus])
     status: ProjectStatus
 
 }

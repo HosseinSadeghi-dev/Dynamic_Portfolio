@@ -1,0 +1,87 @@
+<div fxLayout="column" class="mb-4"
+     fxLayoutAlign="start stretch" fxLayoutGap="2rem">
+
+  <b class="text-center">
+    {{blog.id ? 'ویرایش بلاگ' : 'بلاگ جدید'}}
+  </b>
+
+  <upload-image [componentHeight]="330" [inputImage]="blog.image" title="عکس بلاگ"
+                (outputImage)="imageToUpload = $event; blog.imageDeleted = false" [hasDelete]="true"
+                (deleted)="imageDeleted()" [imageType]="'blog'" [compressRate]="80">
+  </upload-image>
+
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <mat-form-field appearance="outline" color="primary" fxFlex>
+      <mat-label>عنوان مقاله</mat-label>
+      <input [(ngModel)]="blog.title" type="text" required
+             placeholder="عنوان مقاله" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" fxFlex="10%">
+      <mat-label>وضعیت مقاله</mat-label>
+      <mat-select [(ngModel)]="blog.status">
+        <mat-option *ngFor="let status of blogStatuses" [value]="status.status">
+          {{status.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>کلمات کلیدی مقاله</mat-label>
+    <input [(ngModel)]="blog.keywords" type="text" required
+           placeholder="کلمات کلیدی مقاله" matInput autocomplete="off">
+    <mat-error>انتخاب این فیلد اجباری است</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>متن مقاله</mat-label>
+    <textarea [(ngModel)]="blog.description" type="text" required rows="10"
+              placeholder="متن مقاله" matInput autocomplete="off"></textarea>
+    <mat-error>انتخاب این فیلد اجباری است</mat-error>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button color="primary" (click)="submit()"
+            [disabled]="!blog.description || !blog.keywords || !blog.title">
+      {{blog.id ? 'ویرایش مقاله' : 'ثبت مقاله جدید'}}
+    </button>
+  </div>
+
+  <ng-container *ngIf="blog.id">
+    <div>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center"
+         class="blog-more-detail" fxLayoutGap="20px">
+
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>تاریخ ایجاد</mat-hint>
+        <span>:</span>
+        <span>{{blog.created | jalaliDate}}</span>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>ایجاد کننده</mat-hint>
+        <span>:</span>
+        <span>{{blog.userNameCreated}}</span>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>تاریخ آخرین تغییر</mat-hint>
+        <span>:</span>
+        <span>{{blog.updated | jalaliDate}}</span>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>تعداد بازدید</mat-hint>
+        <span>:</span>
+        <span>{{blog.seen | number}}</span>
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>

@@ -20,7 +20,23 @@ const routes: Routes = [
         path: 'blogs',
         loadChildren: () => import('./modules/blogs/blogs.module').then(m => m.BlogsModule)
       },
+      {
+        path: 'projects',
+        loadChildren: () => import('./modules/projects/projects.module').then(m => m.ProjectsModule)
+      },
+      {
+        path: 'about',
+        loadChildren: () => import('./modules/about/about.module').then(m => m.AboutModule)
+      },
     ]
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: 'undefined',

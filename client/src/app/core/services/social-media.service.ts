@@ -23,7 +23,7 @@ export class SocialMediaService {
   }
 
   set socialMedias(socialMedias: SocialMediaModel[]) {
-    this._socialMedias = [...socialMedias,...socialMedias,...socialMedias,...socialMedias,...socialMedias,...socialMedias,...socialMedias,...socialMedias,]
+    this._socialMedias = socialMedias
   }
 
   get socialMedias(): SocialMediaModel[] {
@@ -34,13 +34,6 @@ export class SocialMediaService {
 
   getSocialMedias(): Observable<SocialMediaModel[]> {
     return this.httpClient.get("/social-media").pipe(
-      map((response: any) => response),
-      catchError((error: HttpErrorResponse) => throwError(error))
-    );
-  }
-
-  createSocialMedia(socialMedia: SocialMediaModel): Observable<SocialMediaModel> {
-    return this.httpClient.post(`/social-media`, socialMedia).pipe(
       map((response: any) => response),
       catchError((error: HttpErrorResponse) => throwError(error))
     );

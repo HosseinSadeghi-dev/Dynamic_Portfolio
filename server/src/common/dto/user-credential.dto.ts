@@ -13,10 +13,10 @@ export class UserCredentialDto {
     @MinLength(8)
     @MaxLength(20)
     // at least 1 uppercase, at least 1 lowercase, at least 1number or special character
-    @Matches(
-        /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-        {message: 'Password is too weak'}
-    )
+    // @Matches(
+    //     /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+    //     {message: 'Password is too weak'}
+    // )
     password: string;
 
     @IsOptional()

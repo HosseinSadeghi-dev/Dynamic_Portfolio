@@ -5,5 +5,6 @@ export interface PaginationModel<T> {
 }
 export interface PaginationHandleModel {
   pageNumber: number
-  pageSize: number
+  pageSize: number,
+  total?: number;
 }

@@ -1,1 +1,44 @@
-<p>blog-view works!</p>
+<div fxLayout="column" fxLayoutAlign="start stretch"
+     class="blog-view" *ngIf="blog">
+
+  <img [src]="blog.image"
+       class="blog-image" [alt]="blog.title">
+
+  <mat-card class="blog-card" fxLayout="column" fxLayoutAlign="start stretch"
+            fxLayoutGap="2rem">
+
+    <div class="section-title text-center">
+      <h3>مقاله</h3>
+      <span class="title-bg">blog</span>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <span fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon color="primary">person</mat-icon>
+        {{blog.userNameCreated}}
+      </span>
+      <span fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon color="primary">calendar_month</mat-icon>
+        {{blog.created | jalaliDate}}
+      </span>
+      <span fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon color="primary">visibility</mat-icon>
+        {{blog.seen | number}}
+      </span>
+      <span fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon color="primary">label_important</mat-icon>
+        <span>{{blog.keywords}}</span>
+      </span>
+    </div>
+
+    <div>
+      <mat-divider></mat-divider>
+    </div>
+
+    <h2>{{blog.title}}</h2>
+
+    <p class="text-justify" [innerHTML]="blog.description"></p>
+
+  </mat-card>
+
+</div>

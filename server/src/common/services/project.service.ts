@@ -20,10 +20,20 @@ export class ProjectService {
         const qb: SelectQueryBuilder<ProjectEntity> = this.projectRepository
             .createQueryBuilder('project')
             .where('(project.deleted = false)')
+            .orderBy('project.created', 'DESC')
 
-        query.searchText && qb.orWhere('(project.title LIKE :title)', {title: `%${query.searchText}%`})
-        query.searchText && qb.orWhere('(project.description LIKE :description)', {description: `%${query.searchText}%`})
-        query.status && qb.andWhere('(project.status = :status)', {status: query.status})
+        if (query.searchText) {
+            qb.where('project.title LIKE :nameFilter', {nameFilter: `%${query.searchText}%` })
+        }
+
+        if (query.status) {
+            qb.where('(project.status = :statusFilter)', {statusFilter: query.status})
+        }
+
+        if (query.sort) {
+            console.log('sort', query.sort)
+            qb.orderBy(`project.${query.sort}`, query.sortType)
+        }
 
         query.pageSize && qb.take(query.pageSize);
         query.pageNumber && qb.skip(query.pageNumber * query.pageSize);
@@ -38,10 +48,9 @@ export class ProjectService {
         const qb: SelectQueryBuilder<ProjectEntity> = this.projectRepository
             .createQueryBuilder('project')
             .where('(project.deleted = false)')
-            .andWhere('(project.status = 0)')
+            .where('(project.status = 0)')
+            .orderBy('project.created', 'DESC')
 
-        query.searchText && qb.orWhere('(project.title LIKE :title)', {title: `%${query.searchText}%`})
-        query.searchText && qb.orWhere('(project.description LIKE :description)', {description: `%${query.searchText}%`})
         query.pageSize && qb.take(query.pageSize);
         query.pageNumber && qb.skip(query.pageNumber * query.pageSize);
 
@@ -76,6 +85,10 @@ export class ProjectService {
             title: _found.title,
             description: _found.description,
             image: _found.image,
+            keywords: _found.keywords,
+            created: _found.created,
+            externalLink: _found.externalLink,
+            seen: _found.seen
         } as ProjectEntity
     }
 
@@ -84,6 +97,8 @@ export class ProjectService {
 
         _project.title = newProjectDto.title
         _project.description = newProjectDto.description
+        _project.keywords = newProjectDto.keywords
+        _project.externalLink = newProjectDto.externalLink
 
         if (image) {
             _project.image = `assets${image?.destination.split("assets")[1]}/${image?.filename}`
@@ -105,12 +120,17 @@ export class ProjectService {
 
         _project.title = editProjectDto.title
         _project.description = editProjectDto.description
+        _project.keywords = editProjectDto.keywords
+        _project.externalLink = editProjectDto.externalLink
+        _project.updated = new Date()
 
-        if (editProjectDto.imageDeleted === true) {
+        if (editProjectDto.imageDeleted === true && _project.image) {
             deleteLocalFile('projects' + _project.image.slice(_project.image.lastIndexOf('/')))
             _project.image = null
-        } else if (image) {
+        } else if (image && _project.image) {
             deleteLocalFile('projects' + _project.image.slice(_project.image.lastIndexOf('/')))
+            _project.image = `assets${image?.destination.split("assets")[1]}/${image?.filename}`
+        } else if (image) {
             _project.image = `assets${image?.destination.split("assets")[1]}/${image?.filename}`
         }
 

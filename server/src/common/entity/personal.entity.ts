@@ -13,15 +13,27 @@ export class PersonalEntity extends BaseEntity {
     phoneNumber: string;
 
     @Column({nullable: true})
+    age: number;
+
+    @Column({nullable: true})
     email: string;
+
+    @Column({nullable: true})
+    languages: string;
+
+    @Column({nullable: true})
+    nationality: string;
+
+    @Column({nullable: true})
+    cv: string;
 
     @Column({nullable: true})
     mainField: string;
 
     @Column({nullable: true})
-    fullDesc: string
+    desc: string
 
     @Column({nullable: true})
-    shortDesc: string
+    address: string
 
 }

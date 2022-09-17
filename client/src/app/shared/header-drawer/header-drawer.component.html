@@ -9,21 +9,22 @@
     </button>
   </div>
 
-  <image-lazy class="p-3"
+  <image-lazy class="p-3 px-4 clickable" routerLink="/"
+              ngClass.lt-md="p-5" (click)="appService.windowWidth < 959 ? (appService.headerSidenav = sidenavStatus.close) : null"
               [src]="settingService.setting.logo"
               [alt]="settingService.setting.logo"></image-lazy>
 
   <div fxLayout="column" fxLayoutAlign="start stretch"
        class="drawer-links" fxLayoutGap="7px">
-    <a *ngFor="let link of links"
-       [routerLink]="link.link" routerLinkActive="active-header-link"
-       [routerLinkActiveOptions]="{exact:true}"
+    <a *ngFor="let link of links" [routerLink]="link.link"
+       fxLayout="row" fxLayoutAlign="center center"
        class="p-2 text-center" (click)="appService.windowWidth < 959 ? (appService.headerSidenav = sidenavStatus.close) : null">
-      {{link.name}}
+      <mat-icon color="accent">{{link.icon}}</mat-icon>
+      <span class="link-name">{{link.name}}</span>
     </a>
   </div>
 
-  <label class="switch">
+  <label class="switch" fxHide.lt-md>
     <input class="switch__checkbox" [checked]="appService.theme == 'dark'"
            (click)="appService.toggleTheme()" type="checkbox">
     <span class="switch__toggle"></span>

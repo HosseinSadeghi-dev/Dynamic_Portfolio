@@ -11,6 +11,7 @@ import * as services from "./services"
 
 
 const jwtConfig = config.get('jwt');
+const telegramConfig = config.get('telegram');
 
 @Module({
     imports: [

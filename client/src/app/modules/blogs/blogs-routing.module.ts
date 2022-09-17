@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {BlogsComponent} from "./blogs.component";
 import {BlogViewComponent} from "./blog-view/blog-view.component";
 import {BlogsResolver} from "./resolver/blogs.resolver";
+import {BlogViewResolver} from "./resolver/blog-view.resolver";
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'view/:id',
-    component: BlogViewComponent
+    component: BlogViewComponent,
+    resolve: {blog: BlogViewResolver}
   }
 ];
 

@@ -3,6 +3,12 @@ import {Meta, Title} from "@angular/platform-browser";
 import {DOCUMENT} from "@angular/common";
 import {SEOModel} from "../models/global.model";
 import {environment} from "../../../environments/environment";
+import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
+import {Observable, throwError} from "rxjs";
+import {PaginationModel} from "../models/pagination.model";
+import {ContactMeModel} from "../models/contact-me.model";
+import {catchError, map} from "rxjs/operators";
+import {_window} from "../../shared/global/global-variable";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +19,12 @@ export class SeoService {
     private titleService: Title,
     private metaService: Meta,
     @Inject(DOCUMENT) private doc: Document,
+    private httpClient: HttpClient
   ) {
   }
 
-
-  setSEO(data: SEOModel) {
-    const url = environment.apiUrl + data['url']
+  seoInit(data: SEOModel) {
+    const url = _window.location.origin + data['url']
     Object.entries(data).forEach(([key, value]) => {
       if (!value) {
         if (key.includes('og')) {
@@ -61,5 +67,22 @@ export class SeoService {
       this.doc.head.appendChild(link);
       link.setAttribute('href', url);
     }
+  }
+
+  // http services
+
+  getSeo(
+  ): Observable<SEOModel[]> {
+    return this.httpClient.get("/seo").pipe(
+      map((response: any) => response),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
+  setSeo(seo: SEOModel): Observable<SEOModel> {
+    return this.httpClient.put("/seo", seo).pipe(
+      map((response: any) => response),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
   }
 }

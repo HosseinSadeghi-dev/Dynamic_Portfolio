@@ -1,4 +1,6 @@
 import {FormGroup} from "@angular/forms";
+import {fromEvent, merge, Observable, Observer} from "rxjs";
+import {map} from "rxjs/operators";
 
 /**
  * return An unique array from the array you send as parameter
@@ -194,4 +196,20 @@ export function dataURItoBlob(dataURI: string, filePrefix: string): File {
   }
   const imageBlob = new Blob([int8Array], {type: 'image/png'});
   return new File([imageBlob], `${filePrefix}_${getRandomString(10)}.png`, {type: 'image/png'})
+}
+
+
+/**
+ * return if network is connected or not
+ *
+ * @return An `observable` as the network connectivity.
+ */
+export function networkConnection(): Observable<any> {
+  return merge<any>(
+    fromEvent(window, 'offline').pipe(map(() => false)),
+    fromEvent(window, 'online').pipe(map(() => true)),
+    new Observable((sub: Observer<boolean>) => {
+      sub.next(navigator.onLine);
+      sub.complete();
+    }));
 }

@@ -1,16 +1,37 @@
-<div fxLayout="column" fxLayoutAlign="start stretch"
+<div fxLayout="column" fxLayoutAlign="start stretch" [ngClass]="{'pt-4': !fromLanding}"
      class="my-4 container" fxLayoutGap="2rem">
 
   <div class="section-title text-center">
     <h2>مقالات</h2>
-    <span class="title-bg">blog</span>
+    <span class="title-bg">blogs</span>
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
-    <mat-card *ngFor="let blog of blogs.results" fxFlex="30%"
-              fxFlex.lt-md="49%" class="mb-3">
-      {{blog.title}}
+    <mat-card *ngFor="let blog of blogs?.results" fxFlex="30%" [ngStyle]="{'border-top-color': blog.showColor}"
+              fxFlex.lt-md="49%" class="mb-4 blog" fxLayout="column" fxLayoutAlign="start stretch">
+      <h4>
+        <a [routerLink]="'/blogs/view/' + blog.id">
+          {{blog.title}}
+        </a>
+      </h4>
+      <p>{{blog.description}}</p>
+
+      <img  *ngIf="blog.image else noImage" [src]="blog.image" [alt]="blog.title" [title]="blog.title"
+                  [routerLink]="'/blogs/view/' + blog.id" class="img-fluid clickable">
+      <ng-template #noImage>
+        <img src="assets/static/default/blog.png" [alt]="blog.title"
+             [routerLink]="'/blogs/view/' + blog.id" class="img-fluid clickable">
+      </ng-template>
     </mat-card>
   </div>
+
+  <a routerLink="/blogs" class="full-view" *ngIf="fromLanding">
+    مشاهده مقالات...
+  </a>
+
+  <mat-paginator [pageSizeOptions]="[6, 9, 15, 30]" *ngIf="!fromLanding"
+                 [pageSize]="pagination.pageSize" [pageIndex]="pagination.pageNumber - 1"
+                 [length]="blogs.total" (page)="handlePagination($event)"
+                 showFirstLastButtons></mat-paginator>
 
 </div>

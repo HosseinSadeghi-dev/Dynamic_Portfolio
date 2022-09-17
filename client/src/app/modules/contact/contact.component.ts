@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SocialMediaService} from "../../core/services/social-media.service";
+import {ContactMeService} from "../../core/services/contact-me.service";
+import {NotificationService} from "../../core/services/notification.service";
 
 @Component({
   selector: 'app-contact',
@@ -9,11 +11,14 @@ import {SocialMediaService} from "../../core/services/social-media.service";
 })
 export class ContactComponent implements OnInit {
 
+  @Input() fromLanding: boolean = false
   contactForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    public socialMediaService: SocialMediaService
+    public socialMediaService: SocialMediaService,
+    private contactMeService: ContactMeService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +28,7 @@ export class ContactComponent implements OnInit {
   createForm(): void {
     this.contactForm = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]],
-      name: ['', Validators.required],
+      fullName: ['', Validators.required],
       subject: ['', Validators.required],
       message: ['', Validators.required],
     })
@@ -34,6 +39,9 @@ export class ContactComponent implements OnInit {
       this.contactForm.markAllAsTouched();
       return
     }
+    this.contactMeService.contactMe(this.contactForm.value).subscribe(() => {
+      this.notificationService.notification("valid", 'با موفقیت ثبت شد، در اسرع وقت با شما تماس خواهم گرفت!')
+    })
   }
 
 }

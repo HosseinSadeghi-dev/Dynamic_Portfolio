@@ -1,0 +1,26 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" [ngClass]="{'pt-4': !fromLanding}"
+     class="my-4 container" fxLayoutGap="2rem">
+
+  <div class="section-title text-center">
+    <h2>پروژه ها</h2>
+    <span class="title-bg">works</span>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-around stretch">
+    <div class="project-preview mb-3" fxFlex="30%" [routerLink]="'/projects/view/' + project.id"
+         *ngFor="let project of projects?.results">
+      <img [src]="project.image" [alt]="project.title" [title]="project.title">
+      <h3>{{project.title}}</h3>
+    </div>
+  </div>
+
+  <a routerLink="/projects" class="full-view" *ngIf="fromLanding">
+    مشاهده پروژه ها...
+  </a>
+
+  <mat-paginator [pageSizeOptions]="[6, 9, 15, 30]" *ngIf="!fromLanding"
+                 [pageSize]="pagination.pageSize" [pageIndex]="pagination.pageNumber - 1"
+                 [length]="projects.total" (page)="handlePagination($event)"
+                 showFirstLastButtons></mat-paginator>
+
+</div>

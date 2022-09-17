@@ -1,0 +1,14 @@
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  @media screen and (max-width: 959px) {
+    ::ng-deep.mat-tab-link {
+      font-size: 10px;
+    }
+  }
+}
+
+.admin-content {
+  min-height: calc(100vh - 64px);
+}

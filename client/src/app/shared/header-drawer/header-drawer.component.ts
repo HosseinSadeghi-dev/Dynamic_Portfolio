@@ -17,26 +17,27 @@ export class HeaderDrawerComponent implements OnInit {
   links: {
     name: string,
     link: string,
+    icon: string
   }[] = [
-    {
-      link: '/',
-      name: 'خانه',
-    },
     {
       link: '/about',
       name: 'درباره من',
+      icon: 'emoji_people'
     },
     {
       link: '/projects',
       name: 'کارهای من',
+      icon: 'work'
     },
     {
       link: '/blogs',
       name: 'مقالات',
+      icon: 'rss_feed'
     },
     {
       link: '/contact',
       name: 'ارتباط با من',
+      icon: 'connect_without_contact'
     },
   ]
 

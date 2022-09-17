@@ -1,4 +1,4 @@
-import {IsIn, IsNotEmpty, IsNumber, IsOptional} from "class-validator";
+import {IS_STRING, IsIn, IsNotEmpty, IsNumber, IsOptional} from "class-validator";
 import {Transform} from "class-transformer";
 import {BlogStatus} from "../models/blog.model";
 
@@ -8,16 +8,14 @@ export class BlogsFilterDto {
     searchText: string;
 
     @IsOptional()
-    @IsIn([BlogStatus])
     status: BlogStatus
 
     @IsOptional()
     @IsNotEmpty()
-    createdBy: string;
+    sort: string;
 
     @IsOptional()
-    @IsNotEmpty()
-    editedBy: string;
+    sortType: "ASC" | "DESC"
 
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
@@ -38,8 +36,10 @@ export class NewBlogDto {
     @IsNotEmpty({message: 'توضیحات بلاگ نباید خالی باشد'})
     description: string
 
+    @IsNotEmpty({message: 'کلمات کلیدی بلاگ نباید خالی باشد'})
+    keywords: string
+
     @IsOptional()
-    @IsIn([BlogStatus])
     status: BlogStatus
 
 }
@@ -52,11 +52,13 @@ export class EditBlogDto {
     @IsNotEmpty({message: 'توضیحات بلاگ نباید خالی باشد'})
     description: string
 
+    @IsNotEmpty({message: 'کلمات کلیدی بلاگ نباید خالی باشد'})
+    keywords: string
+
     @IsOptional()
     imageDeleted: boolean
 
     @IsOptional()
-    @IsIn([BlogStatus])
     status: BlogStatus
 
 }

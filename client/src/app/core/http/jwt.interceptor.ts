@@ -22,7 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (this.credentialsService.isAuthenticated) {
+    if (this.credentialsService.token) {
       request = request.clone({
         setHeaders: {
           Accept: "application/json",

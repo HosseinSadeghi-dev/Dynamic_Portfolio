@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutAlign="start stretch"
+     class="project-view" *ngIf="project">
+
+  <img [src]="project.image"
+       class="project-image" [alt]="project.title">
+
+  <mat-card class="project-card" fxLayout="column" fxLayoutAlign="start stretch"
+            fxLayoutGap="2rem">
+
+    <div class="section-title text-center">
+      <h3>پروژه</h3>
+      <span class="title-bg">project</span>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <mat-icon color="primary">calendar_month</mat-icon>
+        {{project.created | jalaliDate}}
+      </span>
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" *ngIf="project.externalLink">
+        <mat-icon color="primary">link</mat-icon>
+        <a [href]="project.externalLink" target="_blank">{{project.externalLink}}</a>
+      </span>
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <mat-icon color="primary">visibility</mat-icon>
+        {{project.seen | number}}
+      </span>
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <mat-icon color="primary">label_important</mat-icon>
+        <span>{{project.keywords}}</span>
+      </span>
+    </div>
+
+    <div>
+      <mat-divider></mat-divider>
+    </div>
+
+    <h2>{{project.title}}</h2>
+
+    <p class="text-justify" [innerHTML]="project.description"></p>
+
+  </mat-card>
+
+</div>

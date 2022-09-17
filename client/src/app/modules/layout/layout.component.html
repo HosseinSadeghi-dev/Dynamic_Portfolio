@@ -1,13 +1,26 @@
 <mat-drawer-container autosize [hasBackdrop]="false" class="drawer-container">
 
   <mat-drawer #headerDrawer [mode]="appService.windowWidth > 959 ? 'side' : 'over'"
-              [ngClass]="[appService.theme == 'dark' ? 'dark-drawer' : 'light-drawer',]"
               position="start" id="headerDrawer"
+              [opened]="appService.windowWidth > 959"
               (closed)="appService.headerSidenav = SidenavStatus.close">
     <header-drawer></header-drawer>
   </mat-drawer>
 
   <mat-drawer-content class="drawer-content">
+    <mat-toolbar class="w-100 drawer-header" fxHide.gt-md color="primary"
+         fxLayout="row" fxLayoutAlign="space-between center">
+      <button mat-icon-button color="accent" (click)="appService.headerSidenav = SidenavStatus.open">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <label class="switch">
+        <input class="switch__checkbox" [checked]="appService.theme == 'dark'"
+               (click)="appService.toggleTheme()" type="checkbox">
+        <span class="switch__toggle"></span>
+        Toggle dark mode
+      </label>
+    </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 

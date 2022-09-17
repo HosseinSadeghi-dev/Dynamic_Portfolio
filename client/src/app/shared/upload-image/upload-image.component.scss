@@ -9,9 +9,12 @@
     }
 
     button {
+      mat-icon {
+        color: white !important;
+      }
       position: absolute;
       top: 5px;
-      z-index: 10;
+      z-index: 0;
       &.delete-image-btn {
         left: 50px;
       }
@@ -19,8 +22,6 @@
         left: 5px;
       }
     }
-
-
 
   }
 

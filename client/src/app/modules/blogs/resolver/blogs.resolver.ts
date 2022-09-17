@@ -20,6 +20,6 @@ export class BlogsResolver implements Resolve<PaginationModel<BlogModel>> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationModel<BlogModel>> {
-    return this.blogsService.getBlogs(6, 1);
+    return this.blogsService.getBlogs(9, 0);
   }
 }

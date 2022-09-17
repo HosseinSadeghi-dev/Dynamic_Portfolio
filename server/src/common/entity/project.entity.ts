@@ -1,4 +1,4 @@
-import {BaseEntity, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
 import {ProjectStatus} from "../models/project.model";
 
 
@@ -17,14 +17,11 @@ export class ProjectEntity extends BaseEntity {
     @Column({nullable: true})
     image: string;
 
-    // @Column({nullable: true})
-    // technologies: string;
-    //
-    // @Column({nullable: true})
-    // externalLink: string;
-    //
-    // @Column({nullable: true})
-    // github: string;
+    @Column({nullable: true})
+    externalLink: string;
+
+    @Column({nullable: true})
+    keywords: string;
 
     @Column({default: ProjectStatus.published})
     status: ProjectStatus;
@@ -40,11 +37,6 @@ export class ProjectEntity extends BaseEntity {
 
     @Column({select: false, default: false})
     deleted: boolean;
-
-    @BeforeUpdate()
-    updateTimestamp() {
-        this.updated = new Date;
-    }
 
     async moreSeen(): Promise<void> {
         this.seen += 1;

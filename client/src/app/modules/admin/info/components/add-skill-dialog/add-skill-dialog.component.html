@@ -1,0 +1,32 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <b>{{skill.id ? 'ویرایش مهارت' : 'مهارت جدید'}}</b>
+    <button (click)="close()" mat-icon-button color="warn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>نام مهارت</mat-label>
+    <input [(ngModel)]="skill.title" type="text" required
+           placeholder="نام مهارت" matInput autocomplete="off">
+    <mat-error>انتخاب این فیلد اجباری است</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>درصد مهارت</mat-label>
+    <input [(ngModel)]="skill.progress" type="number" required min="1" max="100"
+           placeholder="درصد مهارت" matInput autocomplete="off">
+    <mat-error>انتخاب این فیلد اجباری است</mat-error>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+    <button mat-raised-button color="warn" (click)="close()">لغو</button>
+    <button mat-raised-button color="primary" (click)="close(skill)"
+            [disabled]="!skill?.title || skill.progress < 1 || skill.progress > 100 || !skill.progress">
+      ثبت
+    </button>
+  </div>
+
+</div>

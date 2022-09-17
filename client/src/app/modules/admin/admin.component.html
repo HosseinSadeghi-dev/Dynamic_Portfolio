@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+
+  <mat-toolbar color="primary" class="admin-header">
+    <mat-toolbar-row ngClass.lt-md="py-2"
+                     fxLayout="row" fxLayoutAlign="space-between center">
+      <a routerLink="/" fxFlex="50px" fxFlex.lt-md="35px">
+        <img [src]="settingService?.setting?.logo" class="img-fluid"
+             [alt]="personalService?.personalDetail?.fullName">
+      </a>
+
+      <nav mat-tab-nav-bar fxHide.lt-md>
+        <a mat-tab-link *ngFor="let link of navLinks"
+           (click)="activeLink.route = link.route" [routerLink]="link.route"
+           [active]="activeLink.route == link.route">
+          <span>{{link.name}}</span>
+        </a>
+      </nav>
+
+      <label class="switch">
+        <input class="switch__checkbox" [checked]="appService.theme == 'dark'"
+               (click)="appService.toggleTheme()" type="checkbox">
+        <span class="switch__toggle"></span>
+        Toggle dark mode
+      </label>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row fxHide.gt-md style="font-size: 10px">
+      <nav mat-tab-nav-bar>
+        <a mat-tab-link *ngFor="let link of navLinks"
+           (click)="activeLink.route = link.route"
+           [active]="activeLink.route == link.route">
+          <span>{{link.name}}</span>
+        </a>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="admin-content mat-drawer-container">
+    <div class="container mt-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

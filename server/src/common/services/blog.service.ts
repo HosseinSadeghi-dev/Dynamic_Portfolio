@@ -20,12 +20,20 @@ export class BlogService {
         const qb: SelectQueryBuilder<BlogEntity> = this.blogRepository
             .createQueryBuilder('blog')
             .where('(blog.deleted = false)')
+            .orderBy('blog.created', 'DESC')
 
-        query.searchText && qb.orWhere('(blog.title LIKE :title)', {title: `%${query.searchText}%`})
-        query.searchText && qb.orWhere('(blog.description LIKE :description)', {description: `%${query.searchText}%`})
-        query.status && qb.andWhere('(blog.status = :status)', {status: query.status})
-        query.createdBy && qb.andWhere('(blog.userNameCreated LIKE :userNameCreated)', {userNameCreated: `%${query.createdBy}%`})
-        query.editedBy && qb.andWhere('(blog.userNameEdited LIKE :userNameEdited)', {userNameEdited: `%${query.editedBy}%`})
+
+        if (query.searchText) {
+            qb.where('blog.title LIKE :nameFilter', {nameFilter: `%${query.searchText}%` })
+        }
+
+        if (query.status) {
+            qb.where('(blog.status = :statusFilter)', {statusFilter: query.status})
+        }
+
+        if (query.sort) {
+            qb.orderBy(`blog.${query.sort}`, query.sortType)
+        }
 
         query.pageSize && qb.take(query.pageSize);
         query.pageNumber && qb.skip(query.pageNumber * query.pageSize);
@@ -40,10 +48,9 @@ export class BlogService {
         const qb: SelectQueryBuilder<BlogEntity> = this.blogRepository
             .createQueryBuilder('blog')
             .where('(blog.deleted = false)')
-            .andWhere('(blog.status = 0)')
+            .where('(blog.status = 0)')
+            .orderBy('blog.created', 'DESC')
 
-        query.searchText && qb.orWhere('(blog.title LIKE :title)', {title: `%${query.searchText}%`})
-        query.searchText && qb.orWhere('(blog.description LIKE :description)', {description: `%${query.searchText}%`})
         query.pageSize && qb.take(query.pageSize);
         query.pageNumber && qb.skip(query.pageNumber * query.pageSize);
 
@@ -79,7 +86,9 @@ export class BlogService {
             title: _found.title,
             description: _found.description,
             image: _found.image,
-            created: _found.created
+            created: _found.created,
+            keywords: _found.keywords,
+            userNameCreated: _found.userNameCreated
         } as BlogEntity
     }
 
@@ -88,6 +97,7 @@ export class BlogService {
 
         _blog.title = newBlogDto.title
         _blog.description = newBlogDto.description
+        _blog.keywords = newBlogDto.keywords
         _blog.userNameCreated = _blog.userNameEdited = user.username
 
         if (image) {
@@ -110,13 +120,17 @@ export class BlogService {
 
         _blog.title = editBlogDto.title
         _blog.description = editBlogDto.description
+        _blog.keywords = editBlogDto.keywords
         _blog.userNameEdited = user.username
+        _blog.updated = new Date()
 
-        if (editBlogDto.imageDeleted === true) {
+        if (editBlogDto.imageDeleted === true && _blog.image) {
             deleteLocalFile('blogs' + _blog.image.slice(_blog.image.lastIndexOf('/')))
             _blog.image = null
-        } else if (image) {
+        } else if (image && _blog.image) {
             deleteLocalFile('blogs' + _blog.image.slice(_blog.image.lastIndexOf('/')))
+            _blog.image = `assets${image?.destination.split("assets")[1]}/${image?.filename}`
+        } else if (image) {
             _blog.image = `assets${image?.destination.split("assets")[1]}/${image?.filename}`
         }
 

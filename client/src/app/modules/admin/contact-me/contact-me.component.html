@@ -1,0 +1,60 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+  <h2>
+    درخواست کنندگان تماس با من
+  </h2>
+
+  <div class="my-3">
+    <mat-divider></mat-divider>
+  </div>
+
+  <div fxLayout="column" fxLayoutGap="20px"
+       fxLayoutAlign="start stretch" *ngIf="contactRequests.length else noRequest">
+    <ng-container
+      *ngFor="let contactRequest of contactRequests; let i = index">
+      <div *ngIf="i != 0">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="contactRequest" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px"
+           fxLayout.lt-md="row wrap" fxLayoutGap.lt-md="10px">
+        <div class="contactRequest-title" fxFlex="100px" fxLayoutGap="10px"
+              fxLayout="column" fxLayoutAlign="center center">
+          <span>{{contactRequest.subject}}</span>
+          <span>{{contactRequest.fullName}}</span>
+        </div>
+        <p class="contactRequest-content" fxFlex>
+          {{contactRequest.message}}
+        </p>
+        <div fxLayout="column" fxLayoutAlign="center center"
+             class="contactRequest-date" fxLayoutGap="5px">
+          <span>
+            {{'تاریخ درخواست'}}
+            :
+            {{contactRequest.created | jalaliDate: 'dateTime'}}
+          </span>
+        </div>
+
+        <a mat-icon-button color="primary" *ngIf="contactRequest.email"
+           [href]="'mailto:' + contactRequest.email">
+          <mat-icon>mail</mat-icon>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-template #noRequest>
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <b>
+        {{'هیچ موردی یافت نشد'}}
+      </b>
+    </div>
+  </ng-template>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 15, 25, 50]"
+                 (page)="paginatorEvent($event)"
+                 showFirstLastButtons
+                 [pageIndex]="paginatorConfig.pageNumber - 1"
+                 [pageSize]="paginatorConfig.pageSize"
+                 [length]="paginatorConfig.total"></mat-paginator>
+
+</div>

@@ -1,0 +1,25 @@
+.network-connection {
+  position: fixed;
+  padding: 1rem 1.5rem;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: darkred;
+  color: white;
+  top: 6.5rem;
+  z-index: 100000;
+  font-size: 14px;
+  transition: all 1.5s ease-in-out;
+
+  mat-icon {
+    $icon-size: 30px !important;
+    font-size: $icon-size;
+    width: $icon-size;
+    height: $icon-size;
+  }
+
+  .divider {
+    border-right: 3px solid white;
+    align-self: stretch;
+  }
+
+}

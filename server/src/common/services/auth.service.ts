@@ -58,7 +58,7 @@ export class AuthService {
                 throw new UnauthorizedException('نام کاربری شما تایید نشده است')
             }
 
-            const payload: JwtPayload = {username}
+            const payload: JwtPayload = {username: username, role: user.role}
             user.accessToken = await this.jwtService.sign(payload)
 
             user.salt = user.password = undefined

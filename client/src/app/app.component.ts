@@ -11,12 +11,14 @@ import {SEOModel} from "./core/models/global.model";
 import {CredentialsService} from "./core/services/credentials.service";
 import {SwUpdate} from "@angular/service-worker";
 import {Meta} from "@angular/platform-browser";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {SeoService} from "./core/services/seo.service";
 import {DOCUMENT} from "@angular/common";
 import {_window} from "./shared/global/global-variable";
 import {SettingService} from "./core/services/setting.service";
 import {SocialMediaService} from "./core/services/social-media.service";
+import {PersonalService} from "./core/services/personal.service";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -28,7 +30,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
   SEOs: SEOModel[] = [];
 
   constructor(
-    public credentialsService: CredentialsService,
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private meta: Meta,
@@ -38,54 +39,52 @@ export class AppComponent implements OnInit, AfterContentChecked {
     private activatedRoute: ActivatedRoute,
     private seoService: SeoService,
     public settingService: SettingService,
-    private socialMediaService: SocialMediaService
+    private socialMediaService: SocialMediaService,
+    private personalService: PersonalService
   ) {
   }
 
   ngOnInit(): void {
     this.settingService.initSetting();
     this.socialMediaService.initSocials();
+    this.personalService.initPersonal();
+    this.personalService.initSkills();
+    this.setSeo();
+  }
+
+  setSeo(): void {
+
+    this.seoService.getSeo().subscribe(res => {
+      this.SEOs = res;
+      const seo: SEOModel | undefined = this.SEOs.find(f => f.url == this.router.url)
+
+      // for first time
+      if (!this.router.url.includes('view') && seo) {
+        this.seoService.seoInit(seo)
+      }
+
+
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(
+        // @ts-ignore
+        (nav: NavigationEnd) => {
+          const seo: SEOModel | undefined = this.SEOs.find(f => f.url == nav.url)
+
+          if (seo && !nav.url.includes('view')) {
+            this.seoService.seoInit(seo)
+          } else if (!nav.url.includes('view')) {
+            this.seoService.seoInit({
+              url: nav.url,
+              title: this.personalService.personalDetail.fullName,
+            })
+          }
+        })
+    })
   }
 
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
-  }
-
-  checkPWAManifest(): void {
-    const faviconEl: any = document.getElementById('favicon');
-
-    let myDynamicManifest = {
-      // "name": this.storeSettingService.store.name,
-      // "short_name": this.storeSettingService.store.name,
-      // "description": this.storeSettingService.store.motto,
-      "display": "standalone",
-      "orientation": "portrait",
-      "scope": _window.location.origin,
-      "start_url": _window.location.origin,
-      "developer": {
-        "name": "Hossein Sadeghi",
-        "url": "https://www.linkedin.com/in/hossein-sadeghi-077092209/"
-      },
-      "background_color": "#fafafa",
-      "theme_color": this.document.documentElement.style
-        .getPropertyValue('--custom-primary-color'),
-      "icons": [
-        {
-          "src": `${faviconEl.href}`,
-          "sizes": "192x192",
-          "type": "image/png",
-          "purpose": "any"
-        },
-      ]
-    }
-    const stringManifest = JSON.stringify(myDynamicManifest);
-    const blob = new Blob([stringManifest], {type: 'application/json'});
-    let reader = new FileReader();
-    reader.readAsDataURL(blob);
-    reader.onload = function () {
-      const manifest: any = reader.result
-      document.querySelector('#PWAManifest')?.setAttribute('href', manifest);
-    };
   }
 
 }

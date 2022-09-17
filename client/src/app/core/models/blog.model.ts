@@ -10,6 +10,9 @@ export interface BlogModel {
   created: Date;
   updated: Date;
   deleted: boolean;
+  showColor: string;
+  imageDeleted: boolean;
+  keywords: string;
 }
 
 export enum BlogStatus {

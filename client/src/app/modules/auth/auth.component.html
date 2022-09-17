@@ -1,0 +1,32 @@
+<section class="authentication" fxLayout="row" fxLayoutAlign="center center">
+
+  <form class="login-card" [formGroup]="loginForm" fxLayout="column" (submit)="submit()"
+        fxLayoutGap="15px" fxLayoutAlign="start stretch">
+
+    <h2 class="text-center">ورود به پنل</h2>
+
+    <mat-form-field appearance="outline" color="primary">
+      <mat-label>نام کاربری</mat-label>
+      <input formControlName="username" type="text"
+             placeholder="نام کاربری" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary">
+      <mat-label>گذرواژه</mat-label>
+      <input formControlName="password" type="password" #passwordInput
+             placeholder="نام و نام خانوادگی" matInput autocomplete="off">
+      <mat-icon class="clickable" color="primary" matSuffix
+                (click)="passwordInput.type == 'password' ? passwordInput.type = 'text' : passwordInput.type = 'password'">
+        {{passwordInput.type == 'password' ? 'visibility' : 'visibility_off'}}
+      </mat-icon>
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="submit()">
+      ورود
+    </button>
+
+  </form>
+
+</section>

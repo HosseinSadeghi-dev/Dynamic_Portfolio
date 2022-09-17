@@ -17,7 +17,7 @@ export class UploadImageComponent implements OnInit {
   @Input() title: string = '';
   @Input() bestWidth: number = 0;
   @Input() bestHeight: number = 0;
-  @Input() bestAspect: string = '1';
+  @Input() bestAspect!: string;
   @Input() imageType: string = 'img';
   @Input() compressRate: number = 75;
   @Input() componentHeight: number = 0;
@@ -33,7 +33,7 @@ export class UploadImageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkValidatorImage(file: any) {
+  checkValidatorImage(file: File) {
     const reader = new FileReader();
     reader.onload = (event: ProgressEvent) => {
       this.imageToShow = (<FileReader>event.target).result;
@@ -44,6 +44,12 @@ export class UploadImageComponent implements OnInit {
 
   selectImage() {
     this.imageCompress.uploadFile().then(({image, orientation}) => {
+      const _imageByte: number = this.imageCompress.byteCount(image)
+      // 2MB or 2 * 10^6
+      if (_imageByte >= 2e+6) {
+        this.notificationService.notification('error', 'حداکثر حجم عکس باید 2MB باید باشد')
+        return
+      }
       this.imageCompress.compressFile(image, orientation, 100, this.compressRate).then(
         result => {
           let file: File = dataURItoBlob(result, this.imageType)

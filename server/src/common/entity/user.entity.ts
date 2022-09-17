@@ -24,9 +24,6 @@ export class UserEntity extends BaseEntity {
     @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
     created: Date;
 
-    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
-    updated: Date;
-
     @Column({ type: 'timestamp', nullable: true})
     lastOnline: Date;
 
@@ -35,11 +32,6 @@ export class UserEntity extends BaseEntity {
 
     @Column({default: false})
     approved: boolean;
-
-    @BeforeUpdate()
-    updateTimestamp() {
-        this.updated = new Date;
-    }
 
     async updateLastOnline(): Promise<void> {
         this.lastOnline = new Date();

@@ -1,5 +1,5 @@
 import {Body, Controller, Get, Put, UploadedFile, UseGuards, UseInterceptors, ValidationPipe} from "@nestjs/common";
-import {ProjectService, SettingService} from "../services";
+import {SettingService} from "../services";
 import {AuthGuard} from "@nestjs/passport";
 import {SettingDto} from "../dto/setting.dto";
 import {SettingEntity} from "../entity";

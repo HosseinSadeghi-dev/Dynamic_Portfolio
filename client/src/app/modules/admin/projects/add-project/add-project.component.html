@@ -1,0 +1,88 @@
+<div fxLayout="column" class="mb-4"
+     fxLayoutAlign="start stretch" fxLayoutGap="2rem">
+
+  <b class="text-center">
+    {{project.id ? 'ویرایش پروژه' : 'پروژه جدید'}}
+  </b>
+
+  <upload-image [componentHeight]="330" [inputImage]="project.image" title="عکس پروژه"
+                (outputImage)="imageToUpload = $event; project.imageDeleted = false" [hasDelete]="true"
+                (deleted)="imageDeleted()" [imageType]="'project'" [compressRate]="80">
+  </upload-image>
+
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <mat-form-field appearance="outline" color="primary" fxFlex>
+      <mat-label>عنوان پروژه</mat-label>
+      <input [(ngModel)]="project.title" type="text" required
+             placeholder="عنوان پروژه" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" fxFlex="10%">
+      <mat-label>وضعیت پروژه</mat-label>
+      <mat-select [(ngModel)]="project.status">
+        <mat-option *ngFor="let status of projectStatuses" [value]="status.status">
+          {{status.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>کلمات کلیدی پروژه</mat-label>
+    <input [(ngModel)]="project.keywords" type="text" required
+           placeholder="کلمات کلیدی پروژه" matInput autocomplete="off">
+    <mat-error>انتخاب این فیلد اجباری است</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>لینک پروژه</mat-label>
+    <input [(ngModel)]="project.externalLink" type="url" required dir="ltr"
+           placeholder="لینک پروژه" matInput autocomplete="off">
+    <mat-error>انتخاب این فیلد اجباری است</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>توضیحات پروژه</mat-label>
+    <textarea [(ngModel)]="project.description" type="text" required rows="10"
+              placeholder="توضیحات پروژه" matInput autocomplete="off"></textarea>
+    <mat-error>انتخاب این فیلد اجباری است</mat-error>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button color="primary" (click)="submit()"
+            [disabled]="!project.description || !project.keywords || !project.title">
+      {{project.id ? 'ویرایش پروژه' : 'ثبت پروژه جدید'}}
+    </button>
+  </div>
+
+  <ng-container *ngIf="project.id">
+    <div>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center"
+         class="project-more-detail" fxLayoutGap="20px">
+
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>تاریخ ایجاد</mat-hint>
+        <span>:</span>
+        <span>{{project.created | jalaliDate}}</span>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>تاریخ آخرین تغییر</mat-hint>
+        <span>:</span>
+        <span>{{project.updated | jalaliDate}}</span>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>تعداد بازدید</mat-hint>
+        <span>:</span>
+        <span>{{project.seen | number}}</span>
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {PersonalService} from "../../core/services/personal.service";
+import {PersonalModel, SkillModel} from "../../core/models/personal.model";
 
 @Component({
   selector: 'app-about',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  @Input() fromLanding: boolean = false
+
+  constructor(
+    public personalService: PersonalService
+  ) { }
 
   ngOnInit(): void {
   }

@@ -10,6 +10,9 @@ import {
 import {Logger} from "./logger.service";
 import {environment} from "../../../environments/environment";
 import {AppService} from "../services/app.service";
+import {NotificationService} from "../services/notification.service";
+import {ErrorMessage} from "../../shared/global/error-message";
+import {CredentialsService} from "../services/credentials.service";
 
 const log = new Logger("ErrorHandlerInterceptor");
 
@@ -21,6 +24,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   constructor(
     private injector: Injector,
     private appService: AppService,
+    private notificationService: NotificationService,
+    // private credentialsService: CredentialsService
   ) {
   }
 
@@ -43,6 +48,12 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     this.appService.loading = false;
     if (!environment.production) {
       log.error("Request error", response);
+    }
+    if (response.error.statusCode == 401) {
+      this.injector.get(CredentialsService).logout()
+      this.notificationService.notification('error','نشست شما منقضی شده است، دوباره وارد شوید')
+    } else {
+      this.notificationService.notification('error',ErrorMessage(response.error))
     }
     throw response;
   }

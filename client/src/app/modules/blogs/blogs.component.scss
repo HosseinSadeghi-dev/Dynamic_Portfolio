@@ -1,0 +1,40 @@
+.blog {
+  border-top: 3px solid;
+
+  h4 {
+    @media screen and (max-width: 959px) {
+      font-size: 14px;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: normal;
+    word-break: break-all;
+    overflow: hidden;
+    max-height: 4rem;
+    text-overflow: ellipsis;
+    display: flow-root;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+
+    @media screen and (max-width: 959px) {
+      font-size: 10px;
+    }
+  }
+
+  a:hover {
+    transition: all 0.5s ease-in-out;
+    color: var(--custom-primary-color);
+  }
+}
+
+.full-view {
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--custom-primary-color);
+  }
+
+  align-self: center;
+}

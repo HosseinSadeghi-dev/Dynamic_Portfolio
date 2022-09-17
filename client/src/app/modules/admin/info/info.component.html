@@ -1,0 +1,156 @@
+<div fxLayout="column" fxLayoutAlign="start stretch"
+     class="my-4" fxLayoutGap="2rem">
+
+  <b class="text-center">مشخصات شخصی</b>
+
+  <form fxLayout="row wrap" [formGroup]="infoForm"
+        fxLayoutAlign="space-between stretch" (submit)="submitPersonalData()">
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>نام و نام خانوادگی</mat-label>
+      <input formControlName="fullName" type="text"
+             placeholder="نام و نام خانوادگی" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>شماره تلفن</mat-label>
+      <input formControlName="phoneNumber" type="tel" dir="ltr"
+             placeholder="شماره تلفن" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>سن</mat-label>
+      <input formControlName="age" type="number"
+             placeholder="سن" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>ایمیل</mat-label>
+      <input formControlName="email" type="email"
+             placeholder="ایمیل" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>زبان ها</mat-label>
+      <input formControlName="languages" type="text"
+             placeholder="زبان ها" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>ملیت</mat-label>
+      <input formControlName="nationality" type="text"
+             placeholder="ملیت" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>حوزه اصلی کار</mat-label>
+      <input formControlName="mainField" type="text"
+             placeholder="حوزه اصلی کار" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>آدرس</mat-label>
+      <input formControlName="address" type="text"
+             placeholder="آدرس" matInput autocomplete="off">
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="primary" class="mb-3"
+                    fxFlex.gt-md="48%" fxFlex.lt-md="100%">
+      <mat-label>درباره خود</mat-label>
+      <textarea formControlName="desc" type="text" rows="8"
+                placeholder="درباره خود" matInput autocomplete="off"></textarea>
+      <mat-error>انتخاب این فیلد اجباری است</mat-error>
+    </mat-form-field>
+
+    <div fxFlex="100%" fxLayoutAlign="center center">
+      <button mat-stroked-button color="primary" (click)="submitPersonalData()">
+        ذخیره تغییرات
+      </button>
+    </div>
+
+  </form>
+
+  <div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1rem">
+    <b class="text-center">آپلود فایل رزومه</b>
+
+    <div fxLayout="column" fxLayoutAlign="start center"
+         fxFlex.gt-md="49%" fxLayoutGap="15px">
+<!--      <pdf-viewer [src]="'../' + personalService.personalDetail.cv"-->
+<!--                  [render-text]="true"-->
+<!--                  *ngIf="personalService.personalDetail?.cv"-->
+<!--                  [original-size]="false"-->
+<!--                  style="width: 100%;max-width: 550px;min-height: 80vh; height: 100%"></pdf-viewer>-->
+      <button mat-stroked-button color="primary" (click)="UploadFileInput.click()"
+              fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <mat-icon>upload</mat-icon>
+        <span>آپلود رزومه</span>
+        <input type="file" accept=".pdf" style="display: none"
+               (change)="submitPersonalData($event.target)" #UploadFileInput>
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1rem">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <b>مهارت ها</b>
+      <button mat-mini-fab color="primary" (click)="handleSkill()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-around stretch">
+      <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+           fxFlex="23%" fxFlex.lt-md="32%" class="mb-3 skill-progress"
+           *ngFor="let skill of personalService.skills; let i = index">
+        <mat-progress-spinner
+          [color]="i % 2 == 0 ? 'primary' : 'accent' "
+          mode="determinate" strokeWidth="5"
+          [value]="skill.progress">
+        </mat-progress-spinner>
+        <span class="progress">{{skill.progress}}%</span>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+          <span>{{skill.title}}</span>
+          <button mat-icon-button color="primary" (click)="handleSkill(skill)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteSkill(skill.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <app-seo></app-seo>
+
+</div>

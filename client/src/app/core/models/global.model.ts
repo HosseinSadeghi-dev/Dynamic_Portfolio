@@ -1,5 +1,5 @@
 export interface SEOModel {
-  title: string,
+  title?: string,
   description?: string,
   "og:locale"?: string,
   "og:type"?: string,
@@ -12,11 +12,17 @@ export interface SEOModel {
   "twitter:title"?: string,
   "twitter:description"?: string,
   url: string
-  keywords?: string,
-  id?: number
+  keywords?: string | null,
+  faName?: string
 }
 
 export enum SidenavStatus {
   open,
   close
+}
+
+export enum UserRole {
+  owner ,
+  admin ,
+  visitor
 }

@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start stretch"
+<div fxLayout="column" fxLayoutAlign="start stretch" [ngClass]="{'pt-4': !fromLanding}"
      class="my-4 container" fxLayoutGap="2rem">
 
   <div class="section-title text-center">
@@ -28,7 +28,7 @@
       <div fxLayout="row" fxLayoutAlign="start center"
            class="contact-way" fxLayoutGap="5px">
         <mat-icon>mail</mat-icon>
-        <a href="tel:sadeghiHossein.hs@gmail.com" dir="ltr">
+        <a href="mailto:sadeghiHossein.hs@gmail.com" dir="ltr">
           sadeghiHossein.hs@gmail.com
         </a>
       </div>
@@ -51,7 +51,7 @@
            fxLayoutAlign.lt-md="start stretch" fxLayoutGap.lt-md="10px">
         <mat-form-field appearance="outline" fxFlex.gt-md="49%">
           <mat-label>نام و نام خانوادگی</mat-label>
-          <input formControlName="name" type="text"
+          <input formControlName="fullName" type="text"
                  placeholder="نام و نام خانوادگی" matInput autocomplete="off">
           <mat-error>انتخاب این فیلد اجباری است</mat-error>
         </mat-form-field>

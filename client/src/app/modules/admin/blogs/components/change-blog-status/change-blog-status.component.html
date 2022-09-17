@@ -1,0 +1,6 @@
+<mat-nav-list>
+  <a *ngFor="let status of blogStatuses"
+     mat-list-item (click)="changeStatus(status.status)">
+    <span mat-line>{{status.name}}</span>
+  </a>
+</mat-nav-list>

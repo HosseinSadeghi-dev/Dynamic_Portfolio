@@ -4,6 +4,7 @@ import {catchError, map} from "rxjs/operators";
 import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {BlogModel, BlogStatus} from "../models/blog.model";
 import {PaginationModel} from "../models/pagination.model";
+import {SortDirection} from "@angular/material/sort";
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,28 @@ export class BlogsService {
   }
 
   // admin
-  getBlogsAdmin(): Observable<PaginationModel<BlogModel>> {
-    return this.httpClient.get("/blogs/admin").pipe(
+  getBlogsAdmin(
+    pageSize: number,
+    pageNumber: number,
+    searchText?: string,
+    sort?: string,
+    sortType: SortDirection = 'desc',
+  ): Observable<PaginationModel<BlogModel>> {
+
+    let params = new HttpParams()
+      .set('pageSize', pageSize)
+      .set('pageNumber', pageNumber)
+
+    if (searchText) {
+      params = params.set('searchText', searchText)
+    }
+
+    if (sort) {
+      params = params.set('sort', sort)
+      params = params.set('sortType', sortType.toUpperCase())
+    }
+
+    return this.httpClient.get("/blogs/admin", {params: params}).pipe(
       map((response: any) => response),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
@@ -30,20 +51,12 @@ export class BlogsService {
     );
   }
 
-  createBlog(blog: BlogModel, image?: File): Observable<BlogModel> {
+  createBlog(blog: BlogModel, image?: File | null): Observable<BlogModel> {
     const formData: FormData = new FormData()
 
     Object.entries(blog).forEach(item => {
       formData.append(item[0], item[1]);
     });
-
-    // for (const key in blog as any) {
-    //   if (blog.hasOwnProperty(key)) {
-    //     if (blog[key as keyof BlogModel]) {
-    //       formData.append(key, blog[key as keyof BlogModel].toString());
-    //     }
-    //   }
-    // }
 
     if (image) {
       formData.append('image', image)
@@ -55,7 +68,7 @@ export class BlogsService {
     );
   }
 
-  editBlog(blog: BlogModel, image?: File): Observable<BlogModel> {
+  editBlog(blog: BlogModel, image?: File | null): Observable<BlogModel> {
     const formData: FormData = new FormData()
 
     Object.entries(blog).forEach(item => {
@@ -64,10 +77,9 @@ export class BlogsService {
 
     if (image) {
       formData.append('image', image)
-      formData.append('imageDeleted', 'true')
     }
 
-    return this.httpClient.post(`/blogs`, formData).pipe(
+    return this.httpClient.put(`/blogs/${blog.id}`, formData).pipe(
       map((response: any) => response),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
@@ -101,7 +113,6 @@ export class BlogsService {
     if (searchText) {
       params = params.set('searchText', searchText)
     }
-
 
     return this.httpClient.get("/blogs", {params: params}).pipe(
       map((response: any) => response),

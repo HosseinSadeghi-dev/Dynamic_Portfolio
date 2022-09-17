@@ -1,0 +1,108 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1rem">
+
+  <h2 class="text-center">
+    تنظیمات SEO
+  </h2>
+
+  <div fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="start stretch">
+
+    <mat-accordion>
+      <ng-container *ngFor="let seo of SEOs">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+              <span>{{'صفحه: '}}</span>
+              <span dir="ltr">{{seo.faName}}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"title" }}</mat-label>
+              <input [(ngModel)]="seo.title" type="text" autocomplete="off" matInput>
+              <mat-hint fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                <span>{{'بهترین تعداد کاراکتر بین 50 تا 70 کاراکتر'}}</span>
+                <span>{{''}}</span>
+              </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"description" }}</mat-label>
+              <input [(ngModel)]="seo.description" type="text" autocomplete="off" matInput>
+              <mat-hint>
+                {{'از جزئیات خلاقانه و خاص استفاده کنید تا تصویر واضحی به خواننده در صفحه گوگل ارائه دهید.'}}
+              </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"keywords" }}</mat-label>
+              <mat-chip-list #chipList aria-label="keywords selection">
+                <mat-chip *ngFor="let keyword of seo.keywords?.split(','); let i = index" (removed)="removeKeyword(keyword, seo.url, i)">
+                  {{keyword}}
+                  <button mat-icon-button matChipRemove class="cancel-chip-btn">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+                <input placeholder="keywords..." [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                       (matChipInputTokenEnd)="addKeyword($event, seo.url)">
+              </mat-chip-list>
+              <mat-hint>{{'شما می توانید کلمات کلیدی مربوط به کسب و کار خود را اضافه کنید'}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"og:title" }}</mat-label>
+              <input [(ngModel)]="seo['og:title']" type="text" autocomplete="off" matInput>
+              <mat-hint>{{'بهتر است هنگامی از این اپن گراف استفاده کنید که عنوان محتوا کوتاه (حداکثر 40کاراکتر)است.'}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"og:description" }}</mat-label>
+              <input [(ngModel)]="seo['og:description']" type="text" autocomplete="off" matInput>
+              <mat-hint>{{'این توضیح در عین حال که باید کوتاه (حدود 2 الی 4 جمله) باشد، باید به قدری جذاب نوشته شود کاربران را به کلیک کردن ترغیب کند.'}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"og:locale" }}</mat-label>
+              <input [(ngModel)]="seo['og:locale']" type="text" autocomplete="off" matInput>
+              <mat-hint>{{'به زبان محتوا اشاره می‌شود به طور مثال fa_IR'}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"og:site_name" }}</mat-label>
+              <input [(ngModel)]="seo['og:site_name']" type="text" autocomplete="off" matInput>
+              <mat-hint>{{'در این متاتگ باید عنوان کلی سایت خود را درج نمایید.'}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"og:type" }}</mat-label>
+              <input [(ngModel)]="seo['og:type']" type="text" autocomplete="off" matInput>
+              <mat-hint>{{'باید کلماتی مانند article (برای پست‌ها)، website (برای سایر صفحات سایت به جز پست‌ها و مقالات)وقرار بگیرد.'}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"twitter:title" }}</mat-label>
+              <input [(ngModel)]="seo['twitter:title']" type="text" autocomplete="off" matInput>
+              <mat-hint>{{'در این متاتگ باید عنوان صفحه یا مطلب درج شود'}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{"twitter:description" }}</mat-label>
+              <input [(ngModel)]="seo['twitter:description']" type="text" autocomplete="off" matInput>
+              <mat-hint>{{'در این متاتگ توضیحات پست یا صفحه باید درج شود'}}</mat-hint>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <button (click)="setSEO(seo)" mat-raised-button color="primary">
+                <span>{{'ثبت'}}</span>
+              </button>
+            </div>
+
+          </div>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-accordion>
+
+  </div>
+
+</div>

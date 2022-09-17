@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {AppService} from "../../core/services/app.service";
 import {SidenavStatus} from "../../core/models/global.model";
 import {MatSidenav} from "@angular/material/sidenav";
-import {_window} from "../../shared/global/global-variable";
 
 @Component({
   selector: 'app-layout',

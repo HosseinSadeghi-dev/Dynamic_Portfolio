@@ -16,5 +16,8 @@ jwt:
 
 
 email:
-  user: 'info@moshaverpendar.com'
-  pass: 'psychomet05113'
+  user: 'hskhabbaz@gmail.com'
+  pass: 'Hossein1379'
+
+telegram:
+  token: '5316491780:AAGoNANFs5ktX3-f4FH9JZpFpnHrwKtYVzs'
