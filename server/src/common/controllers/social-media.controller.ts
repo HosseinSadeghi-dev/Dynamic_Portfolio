@@ -1,9 +1,7 @@
 import {
     Body,
     Controller,
-    Get, Param, ParseIntPipe,
-    Put,
-    UseGuards,
+    Get, Put, UseGuards,
     ValidationPipe
 } from '@nestjs/common';
 import {SocialMediaEntity} from "../entity";
@@ -24,13 +22,12 @@ export class SocialMediaController {
         return await this.socialMediaService.getSocials()
     }
 
-    @Put(':id')
+    @Put('')
     @UseGuards(AuthGuard())
     async editSocialMedia(
         @Body(ValidationPipe) socialMediaDto: SocialMediaDto,
-        @Param('id', ParseIntPipe) id: number
     ): Promise<SocialMediaEntity> {
-        return await this.socialMediaService.editSocial(id, socialMediaDto)
+        return await this.socialMediaService.editSocial(socialMediaDto)
     }
 
 }

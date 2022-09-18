@@ -89,12 +89,9 @@
 
     <div fxLayout="column" fxLayoutAlign="start center"
          fxFlex.gt-md="49%" fxLayoutGap="15px">
-<!--      <pdf-viewer [src]="personalService.personalDetail.cv"-->
-<!--                  [render-text]="true"-->
-<!--                  *ngIf="personalService.personalDetail.cv"-->
-<!--                  [original-size]="false"-->
-<!--                  style="width:100%; min-height: 80vh; height: 100%"></pdf-viewer>-->
-      <a *ngIf="personalService.personalDetail.cv"
+      <embed [src]="personalService.personalDetail.cv | safe"
+             style="width:100%; min-height: 80vh; height: 100%">
+      <a *ngIf="personalService.personalDetail?.cv"
          mat-stroked-button color="primary" download [href]="personalService.personalDetail.cv"
          fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px"
          class="cv-download-btn">

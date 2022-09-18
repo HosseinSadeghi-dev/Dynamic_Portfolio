@@ -19,22 +19,9 @@ export class SocialMediaService {
         return await qb.getMany()
     }
 
-    async findOneSocial(id: number): Promise<SocialMediaEntity> {
-        const _found = await this.socialMediaRepository.findOneBy({id: id})
-
-        if (!_found) {
-            throw new NotFoundException('شبکه اجتماعی مورد نظر پیدا نشد!')
-        }
-
-        return _found
-    }
-
-    async editSocial(id: number, socialMediaDto: SocialMediaDto): Promise<SocialMediaEntity> {
+    async editSocial(socialMediaDto: SocialMediaDto): Promise<SocialMediaEntity> {
         try {
-            let _social: SocialMediaEntity = await this.findOneSocial(id)
-
-            _social.link = socialMediaDto.link
-            _social.title = socialMediaDto.title
+            let _social: SocialMediaEntity = new SocialMediaEntity(socialMediaDto)
 
             return await _social.save()
         } catch (e) {

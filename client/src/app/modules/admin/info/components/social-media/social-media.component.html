@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1rem">
+
+  <h2 class="text-center">
+    تنظیمات شبکه های اجتماعی
+  </h2>
+
+  <div fxLayoutGap="1%" fxLayout="row wrap" fxLayoutAlign="start center">
+
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px"
+         *ngFor="let social of socialMedias" fxFlex="24%">
+      <img [src]="'assets/static/icons/' + social.title + '.svg'" [alt]="social.title"
+           class="img-fluid social-media-logo" fxFlex="75px" [title]="social.title">
+      <mat-form-field appearance="outline">
+        <mat-label>{{social.title}}</mat-label>
+        <input type="url" matInput dir="ltr"
+               required [(ngModel)]="social.link">
+        <button mat-icon-button color="primary" (click)="setSocial(social)" matSuffix>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+</div>

@@ -1,13 +1,9 @@
-import {IsBoolean, IsNotEmpty, IsOptional} from "class-validator";
+import {IsNotEmpty, IsString} from "class-validator";
 
 export class SocialMediaDto {
     @IsNotEmpty({message: 'عنوان شبکه اجتماعی نباید خالی باشد'})
     title: string
 
-    @IsNotEmpty({message: 'لینک شبکه اجتماعی نباید خالی باشد'})
+    @IsString()
     link: string
-
-    @IsBoolean()
-    @IsOptional()
-    imageDeleted: boolean
 }

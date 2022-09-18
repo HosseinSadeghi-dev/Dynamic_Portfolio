@@ -95,11 +95,8 @@
 
     <div fxLayout="column" fxLayoutAlign="start center"
          fxFlex.gt-md="49%" fxLayoutGap="15px">
-<!--      <pdf-viewer [src]="'../' + personalService.personalDetail.cv"-->
-<!--                  [render-text]="true"-->
-<!--                  *ngIf="personalService.personalDetail?.cv"-->
-<!--                  [original-size]="false"-->
-<!--                  style="width: 100%;max-width: 550px;min-height: 80vh; height: 100%"></pdf-viewer>-->
+      <embed [src]="personalService.personalDetail.cv | safe"
+             style="width: 100%;max-width: 550px;min-height: 80vh; height: 100%">
       <button mat-stroked-button color="primary" (click)="UploadFileInput.click()"
               fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
         <mat-icon>upload</mat-icon>
@@ -152,5 +149,11 @@
   </div>
 
   <app-seo></app-seo>
+
+  <div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <app-social-media></app-social-media>
 
 </div>

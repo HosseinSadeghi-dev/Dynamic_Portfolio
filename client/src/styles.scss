@@ -560,7 +560,12 @@ input[type=number]::-webkit-outer-spin-button {
       font-size: 60px;
     }
 
-    //animation: right-left-shake infinite 1s;
+  }
+}
+
+.dark-theme {
+  .social-media-logo {
+    filter: invert(1);
   }
 }
 

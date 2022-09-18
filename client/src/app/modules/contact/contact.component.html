@@ -34,10 +34,11 @@
       </div>
 
       <div fxLayout="row wrap" class="social-medias"
-           fxLayoutAlign="space-around center">
-        <a [href]="social.link" fxFlex="10%"
+           fxLayoutAlign="start center" fxLayoutGap="2%">
+        <a [href]="social.link" fxFlex="10%" target="_blank"
            *ngFor="let social of socialMediaService.socialMedias">
-          <img [src]="social.logo" [alt]="social.title" class="img-fluid">
+          <img [src]="'assets/static/icons/' + social.title + '.svg'" [title]="social.title"
+               [alt]="social.title" class="img-fluid social-media-logo">
         </a>
       </div>
 

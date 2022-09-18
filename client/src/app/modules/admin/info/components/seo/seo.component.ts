@@ -17,7 +17,7 @@ export class SeoComponent implements OnInit {
   SEOs: SEOModel[] = [
     {
       url: '/',
-      faName: 'ابتدایی'
+      faName: 'لندینگ'
     },
     {
       url: '/blogs',

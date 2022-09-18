@@ -40,7 +40,7 @@ export class SocialMediaService {
   }
 
   editSocialMedia(socialMedia: SocialMediaModel): Observable<SocialMediaModel> {
-    return this.httpClient.put(`/social-media/${socialMedia.id}`, socialMedia).pipe(
+    return this.httpClient.put(`/social-media`, socialMedia).pipe(
       map((response: any) => response),
       catchError((error: HttpErrorResponse) => throwError(error))
     );

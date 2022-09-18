@@ -7,13 +7,15 @@ import {SharedModule} from "../../../shared/shared.module";
 // import {PdfViewerModule} from "ng2-pdf-viewer";
 import { AddSkillDialogComponent } from './components/add-skill-dialog/add-skill-dialog.component';
 import {SeoComponent} from "./components/seo/seo.component";
+import { SocialMediaComponent } from './components/social-media/social-media.component';
 
 
 @NgModule({
   declarations: [
     InfoComponent,
     AddSkillDialogComponent,
-    SeoComponent
+    SeoComponent,
+    SocialMediaComponent
   ],
     imports: [
         CommonModule,
