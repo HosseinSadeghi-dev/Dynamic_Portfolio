@@ -7,13 +7,15 @@ import { AddBlogComponent } from './add-blog/add-blog.component';
 import {SharedModule} from "../../../shared/shared.module";
 import { ChangeBlogStatusComponent } from './components/change-blog-status/change-blog-status.component';
 import {UploadImageModule} from "../../../shared/upload-image/upload-image.module";
+import { BlogDateFilterComponent } from './components/blog-date-filter/blog-date-filter.component';
 
 
 @NgModule({
   declarations: [
     BlogsComponent,
     AddBlogComponent,
-    ChangeBlogStatusComponent
+    ChangeBlogStatusComponent,
+    BlogDateFilterComponent
   ],
     imports: [
         CommonModule,

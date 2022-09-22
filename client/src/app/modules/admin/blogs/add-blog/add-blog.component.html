@@ -81,6 +81,12 @@
         <span>{{blog.seen | number}}</span>
       </div>
 
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-hint>تاریخ های بازدید</mat-hint>
+        <span>:</span>
+        <span *ngFor="let seenDate of blog.seenDates" class="mx-2">{{seenDate | jalaliDate: 'dateTime'}}</span>
+      </div>
+
     </div>
   </ng-container>
 

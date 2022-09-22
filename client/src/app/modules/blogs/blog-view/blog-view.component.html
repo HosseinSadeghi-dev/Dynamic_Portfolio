@@ -12,7 +12,8 @@
       <span class="title-bg">blog</span>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="start center"
+         fxLayout.lt-md="row wrap" fxLayoutGap="10px">
       <span fxLayout="row" fxLayoutAlign="start center">
         <mat-icon color="primary">person</mat-icon>
         {{blog.userNameCreated}}

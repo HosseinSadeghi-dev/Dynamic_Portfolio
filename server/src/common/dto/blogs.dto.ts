@@ -28,6 +28,16 @@ export class BlogsFilterDto {
     pageNumber: number
 }
 
+export class BlogsDateFilter {
+
+    @IsNotEmpty()
+    startDate: Date;
+
+    @IsNotEmpty()
+    endDate: Date;
+
+}
+
 export class NewBlogDto {
 
     @IsNotEmpty({message: 'عنوان بلاگ نباید خالی باشد'})

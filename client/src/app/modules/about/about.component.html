@@ -89,8 +89,8 @@
 
     <div fxLayout="column" fxLayoutAlign="start center"
          fxFlex.gt-md="49%" fxLayoutGap="15px">
-      <embed [src]="personalService.personalDetail.cv | safe"
-             style="width:100%; min-height: 80vh; height: 100%">
+      <object [data]="personalService.personalDetail.cv | safe" type="application/pdf"
+              style="width:100%; min-height: 80vh; height: 100%"></object>
       <a *ngIf="personalService.personalDetail?.cv"
          mat-stroked-button color="primary" download [href]="personalService.personalDetail.cv"
          fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px"

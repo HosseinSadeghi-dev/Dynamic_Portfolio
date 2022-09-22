@@ -1,0 +1,30 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+
+  <mat-form-field appearance="outline">
+    <mat-label>تاریخ شروع</mat-label>
+    <input fxFill matInput [matDatepicker]="picker" #startDate
+           (click)="picker.open()">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>تاریخ پایان</mat-label>
+    <input fxFill matInput [matDatepicker]="picker2" #endDate
+           (click)="picker2.open()">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker2></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="submit(startDate.value, endDate.value)"
+          [disabled]="!endDate.value || !startDate.value">
+    فیلتر
+  </button>
+
+  <span class="text-center" *ngIf="seen">
+    در این بازه تعداد
+    <b>{{seen}}</b>
+    نفر این بلاگ را بازدید کرده اند
+  </span>
+
+</div>

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import {BlogService} from "../services";
 import {Pagination} from "../../shared/paginate";
-import {BlogsFilterDto, EditBlogDto, NewBlogDto} from "../dto/blogs.dto";
+import {BlogsDateFilter, BlogsFilterDto, EditBlogDto, NewBlogDto} from "../dto/blogs.dto";
 import {BlogEntity, UserEntity} from "../entity";
 import {AuthGuard} from "@nestjs/passport";
 import {FileInterceptor} from "@nestjs/platform-express";
@@ -50,6 +50,14 @@ export class BlogController {
         @Param('id', ParseIntPipe) id: number
     ): Promise<BlogEntity> {
         return await this.blogService.findOneBlogAdmin(id)
+    }
+
+    @Get('/admin/date/:id')
+    async getDateFilter(
+        @Query() queryDate: BlogsDateFilter,
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<number> {
+        return await this.blogService.getBlogFilterDate(id, queryDate)
     }
 
     @Get('/:id')

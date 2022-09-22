@@ -77,6 +77,8 @@ export class PersonalService {
             let _skill!: SkillEntity;
             if (id) {
                 _skill = await this.findOneSkill(id);
+                _skill.title = skillDto.title;
+                _skill.progress = skillDto.progress
             } else {
                 _skill = new SkillEntity(skillDto)
             }

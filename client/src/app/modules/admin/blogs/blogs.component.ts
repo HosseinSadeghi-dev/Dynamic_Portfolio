@@ -11,6 +11,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {PageEvent} from "@angular/material/paginator/paginator";
 import {ChangeBlogStatusComponent} from "./components/change-blog-status/change-blog-status.component";
 import {Sort, SortDirection} from "@angular/material/sort";
+import {BlogDateFilterComponent} from "./components/blog-date-filter/blog-date-filter.component";
 
 @Component({
   selector: 'app-blogs',
@@ -107,6 +108,16 @@ export class BlogsComponent implements OnInit {
           blog.status = res
         }
       })
+  }
+
+  dateFilter(blog: BlogModel) {
+    this.matDialog.open(BlogDateFilterComponent, {
+      width: '350px',
+      maxWidth: '100%',
+      data: blog.id,
+    }).afterClosed().subscribe(
+      () => {}
+    )
   }
 
   sortData(sort: Sort): void {

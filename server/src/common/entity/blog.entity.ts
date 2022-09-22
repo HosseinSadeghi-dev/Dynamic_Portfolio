@@ -38,11 +38,19 @@ export class BlogEntity extends BaseEntity {
     @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
     updated: Date;
 
+    @Column({type: 'timestamp', array: true, nullable: true})
+    seenDates: Date[]
+
     @Column({select: false, default: false})
     deleted: boolean;
 
     async moreSeen(): Promise<void> {
         this.seen += 1;
+        if (this.seenDates) {
+            this.seenDates.push(new Date())
+        } else {
+            this.seenDates = [new Date()]
+        }
         await this.save();
     }
 }

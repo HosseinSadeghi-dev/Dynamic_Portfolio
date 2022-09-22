@@ -82,6 +82,10 @@
               <mat-icon color="primary">published_with_changes</mat-icon>
               <span>تغییر وضعیت</span>
             </button>
+            <button mat-menu-item (click)="dateFilter(element)">
+              <mat-icon color="primary">published_with_changes</mat-icon>
+              <span>فیلتر تاریخ بر اساس تعداد</span>
+            </button>
             <button mat-menu-item (click)="deleteBlog(element.id)">
               <mat-icon color="warn">delete</mat-icon>
               <span>حذف</span>

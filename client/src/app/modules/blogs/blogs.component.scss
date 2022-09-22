@@ -1,6 +1,16 @@
 .blog {
   border-top: 3px solid;
 
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+  }
+
+  img {
+    transition: all 0.5s ease-in;
+  }
+
   h4 {
     @media screen and (max-width: 959px) {
       font-size: 14px;

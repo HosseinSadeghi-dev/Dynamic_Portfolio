@@ -3,7 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Repository, SelectQueryBuilder} from "typeorm";
 import {BlogEntity, UserEntity} from "../entity";
 import {Pagination} from "../../shared/paginate";
-import {BlogsFilterDto, EditBlogDto, NewBlogDto} from "../dto/blogs.dto";
+import {BlogsDateFilter, BlogsFilterDto, EditBlogDto, NewBlogDto} from "../dto/blogs.dto";
 import {BlogStatus} from "../models/blog.model";
 import {deleteLocalFile} from "../../shared/utils/file_deleting.utils";
 
@@ -24,7 +24,7 @@ export class BlogService {
 
 
         if (query.searchText) {
-            qb.where('blog.title LIKE :nameFilter', {nameFilter: `%${query.searchText}%` })
+            qb.where('blog.title LIKE :nameFilter', {nameFilter: `%${query.searchText}%`})
         }
 
         if (query.status) {
@@ -42,6 +42,26 @@ export class BlogService {
             results: await qb.getMany(),
             total: await qb.getCount(),
         });
+    }
+
+    async getBlogFilterDate(id: number, queryDate: BlogsDateFilter): Promise<number> {
+        try {
+            const _blog: BlogEntity = await this.findOneBlogAdmin(id)
+            let dateSeen: number = 0
+
+            if (_blog.seenDates?.length) {
+                _blog.seenDates.forEach(seenDate => {
+                    if (seenDate >= new Date(queryDate.startDate) && seenDate <= new Date(queryDate.endDate)) {
+                        dateSeen += 1;
+                    }
+                })
+            }
+
+            return dateSeen;
+        } catch (e) {
+            throw new InternalServerErrorException(e)
+        }
+
     }
 
     async getBlogsForVisitor(query: BlogsFilterDto): Promise<Pagination<BlogEntity>> {

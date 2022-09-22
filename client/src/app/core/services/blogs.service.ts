@@ -95,6 +95,17 @@ export class BlogsService {
     );
   }
 
+  getBlogSeenStatus(id: number, startDate: Date, endDate: Date): Observable<any> {
+    let params = new HttpParams()
+      .set('startDate', startDate.toString())
+      .set('endDate', endDate.toString())
+
+    return this.httpClient.get(`/blogs/admin/date/${id}`, {params: params}).pipe(
+      map((response: any) => response),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
   deleteBlog(id: number): Observable<any> {
     return this.httpClient.delete(`/blogs/${id}`).pipe(
       map((response: any) => response),

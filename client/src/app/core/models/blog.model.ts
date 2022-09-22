@@ -9,6 +9,7 @@ export interface BlogModel {
   seen: number;
   created: Date;
   updated: Date;
+  seenDates: Date[];
   deleted: boolean;
   showColor: string;
   imageDeleted: boolean;

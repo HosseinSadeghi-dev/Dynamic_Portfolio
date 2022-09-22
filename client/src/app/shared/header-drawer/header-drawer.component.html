@@ -9,8 +9,9 @@
     </button>
   </div>
 
-  <image-lazy class="p-3 px-4 clickable" routerLink="/"
-              ngClass.lt-md="p-5" (click)="appService.windowWidth < 959 ? (appService.headerSidenav = sidenavStatus.close) : null"
+  <image-lazy ngClass.gt-md="p-3 px-4 clickable" routerLink="/"
+              (click)="appService.windowWidth < 959 ? (appService.headerSidenav = sidenavStatus.close) : null"
+              [ngStyle.lt-md]="{'max-width': '100px', 'align-self': 'center'}"
               [src]="settingService.setting.logo"
               [alt]="settingService.setting.logo"></image-lazy>
 

@@ -68,8 +68,8 @@ const directives: any[] = [
   ],
   providers: [
     NgxImageCompressService,
-    {provide: DateAdapter, useClass: JalaliMomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: JALALI_MOMENT_FORMATS},
+    // {provide: DateAdapter, useClass: JalaliMomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    // {provide: MAT_DATE_FORMATS, useValue: JALALI_MOMENT_FORMATS},
     {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl},
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
   ],

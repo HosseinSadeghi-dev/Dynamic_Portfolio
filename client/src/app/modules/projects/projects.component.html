@@ -7,7 +7,8 @@
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="space-around stretch">
-    <div class="project-preview mb-3" fxFlex="30%" [routerLink]="'/projects/view/' + project.id"
+    <div class="project-preview mb-3" fxFlex.lt-md="45%"
+         fxFlex="30%" [routerLink]="'/projects/view/' + project.id"
          *ngFor="let project of projects?.results">
       <img [src]="project.image" [alt]="project.title" [title]="project.title">
       <h3>{{project.title}}</h3>
